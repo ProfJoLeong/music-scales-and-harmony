@@ -1,0 +1,1391 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<meta name="color-scheme" content="light dark"/>
+<link rel="icon" href="data:,"/>
+<title>Music Scales and Harmony</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,900;1,9..40,400&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FFF8EC; --bg2:#FFFDF8; --card:#FFFFFF; --ink:#1B1710; --muted:#6B6257; --line:#E8DDC8;
+  --accent:#B45309; --accent2:#0F766E; --accent-soft:#FEF3C7; --gold:#D97706;
+  --chip:#F5EEDD; --piano-w:#FFFEF9; --piano-b:#1C1917;
+  --shadow:0 10px 30px rgba(60,40,5,.08);
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#131110; --bg2:#1A1714; --card:#1E1A17; --ink:#F5EFE6; --muted:#A89C8D; --line:#332C26; --accent:#F59E0B; --accent2:#2DD4BF; --accent-soft:#2A2110; --chip:#2A2520; --piano-w:#F8F3E6; --shadow:0 10px 30px rgba(0,0,0,.35); }
+}
+*{box-sizing:border-box} html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"DM Sans",system-ui,sans-serif;line-height:1.6;overflow-x:clip}
+a{color:var(--accent2);font-weight:700}
+button,select,input{font:inherit;min-height:44px}
+button{cursor:pointer}
+.wrap{max-width:1120px;margin:0 auto;padding:0 18px 56px}
+.hero{padding:34px 0 8px}
+.eyebrow{letter-spacing:.16em;text-transform:uppercase;font-size:.72rem;font-weight:900;color:var(--accent)}
+h1{font-family:"DM Serif Display",serif;font-weight:400;font-size:clamp(2.6rem,7vw,4.6rem);line-height:.95;margin:.2em 0 .3em;letter-spacing:-.02em}
+h1 em{color:var(--accent);font-style:italic}
+.lede{font-size:1.12rem;color:var(--muted);max-width:700px;margin:0}
+.lede strong{color:var(--ink)}
+.hero-stats{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 14px;box-shadow:var(--shadow)}
+.stat b{display:block;font-size:1.1rem;line-height:1} .stat span{font-size:.82rem;color:var(--muted)}
+.nav{position:sticky;top:10px;z-index:20;display:flex;gap:8px;flex-wrap:wrap;background:color-mix(in srgb,var(--bg) 88%, transparent);backdrop-filter:blur(10px);padding:10px;border:1px solid var(--line);border-radius:999px;margin:22px 0}
+.nav a{color:var(--ink);text-decoration:none;padding:9px 14px;border-radius:999px;font-size:.92rem}
+.nav a:hover{background:var(--accent-soft)}
+@media(max-width:640px){
+  .nav{flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:6px;gap:4px;top:6px;margin:14px 0 18px;border-radius:999px;max-height:52px}
+  .nav::-webkit-scrollbar{display:none}
+  .nav a{flex:0 0 auto;white-space:nowrap;font-size:.85rem;line-height:1.2;padding:7px 11px;min-height:36px;display:inline-flex;align-items:center}
+}
+section{margin-top:38px;scroll-margin-top:84px}
+@media(max-width:640px){section{scroll-margin-top:64px}}
+.sec-head{display:flex;gap:16px;align-items:flex-start}
+.num{width:44px;height:44px;flex:0 0 44px;border-radius:50%;background:var(--ink);color:var(--bg);display:grid;place-items:center;font-weight:900}
+h2{font-family:"DM Serif Display",serif;font-weight:400;font-size:clamp(1.9rem,4vw,2.6rem);line-height:1;margin:4px 0 6px}
+h3{font-size:1.05rem;margin:0 0 6px}
+.sub{color:var(--muted);margin:0;max-width:720px}
+.sec-head-main{flex:1 1 auto;min-width:0}
+.sec-title-row{display:flex;align-items:center;gap:10px 12px;flex-wrap:wrap}
+.sec-title-row h2{margin:4px 0}
+.explain-toggle{display:inline-flex;align-items:center;gap:7px;background:var(--chip);border:1px solid var(--line);color:var(--ink);border-radius:999px;padding:8px 14px;font-weight:800;font-size:.86rem;line-height:1;min-height:40px}
+.explain-toggle:hover{background:var(--accent-soft)}
+.explain-toggle:focus-visible{outline:3px solid var(--accent2);outline-offset:2px}
+.explain-chev{display:inline-block;font-size:.78rem;line-height:1;color:var(--accent);transition:transform .18s ease}
+.explain-toggle[aria-expanded="true"] .explain-chev{transform:rotate(180deg)}
+.explain-panel{margin-top:8px}
+.explain-panel[hidden]{display:none}
+@media (prefers-reduced-motion: reduce){.explain-chev{transition:none}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:20px;box-shadow:var(--shadow);margin-top:18px}
+.controls{display:grid;grid-template-columns:1fr;gap:20px}
+.controls-top{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;align-items:start}
+@media(max-width:760px){.controls-top{grid-template-columns:1fr}}
+.label{font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;font-weight:900;color:var(--muted);margin-bottom:8px}
+.pills{display:flex;flex-wrap:wrap;gap:7px}
+.pill{border:1px solid var(--line);background:var(--chip);color:var(--ink);border-radius:999px;padding:8px 13px;font-weight:700;min-height:40px;text-align:center}
+.pill.active{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.pill.accent.active{background:var(--accent);border-color:var(--accent);color:white}
+select, input[type=range]{width:100%}
+select{background:var(--chip);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:10px 12px;font-weight:700}
+.now-head{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:24px;align-items:start}
+.now-head-main{min-width:0}
+.mode-picker{background:var(--bg2);border:1px solid var(--line);border-radius:16px;padding:16px}
+.mode-picker select{background:var(--card);width:100%}
+.mode-picker select:focus-visible{outline:3px solid var(--accent2);outline-offset:2px}
+.picker-row{display:grid;grid-template-columns:.85fr 1.6fr;gap:12px;align-items:start}
+.picker-field{min-width:0}
+.picker-field label{display:block}
+@media(max-width:760px){.now-head{grid-template-columns:1fr}.mode-picker{max-width:520px}}
+.now{display:grid;grid-template-columns:1.3fr .7fr;gap:20px}
+.now.single{grid-template-columns:1fr}
+.now.single .kv{max-width:620px}
+@media(max-width:760px){.now{grid-template-columns:1fr}}
+.big-name{font-family:"DM Serif Display",serif;font-size:2.15rem;line-height:1}
+.formula{font-family:"JetBrains Mono",monospace;background:var(--chip);border-radius:10px;padding:10px 12px;font-size:.9rem;margin:12px 0;word-break:break-word}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:.95rem}
+.kv dt{color:var(--muted);font-weight:700} .kv dd{margin:0;font-weight:600}
+.notes{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}
+.note-chip{border:1px solid var(--line);background:var(--bg2);color:var(--ink);border-radius:14px;padding:10px 8px;min-width:62px;text-align:center}
+.note-chip b{display:block;font-size:1.15rem} .note-chip span{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:800}
+.note-chip.root{border-color:var(--accent);background:var(--accent-soft)}
+.note-chip.playing,.piano-key.playing{outline:3px solid var(--accent2);outline-offset:2px}
+.playrow{display:flex;flex-wrap:wrap;gap:9px;align-items:center;margin-top:14px}
+.btn{border-radius:999px;border:1px solid var(--line);background:var(--ink);color:var(--bg);padding:11px 18px;font-weight:900}
+.btn.secondary{background:var(--card);color:var(--ink)}
+.btn.teal{background:var(--accent2);border-color:var(--accent2);color:white}
+.btn:disabled{opacity:.5}
+.seg{display:flex;background:var(--chip);border:1px solid var(--line);border-radius:999px;padding:4px;gap:4px}
+.seg button{border:0;background:transparent;color:var(--ink);border-radius:999px;padding:8px 12px;font-weight:800;min-height:38px}
+.seg button.active{background:var(--card);box-shadow:0 2px 8px rgba(0,0,0,.12)}
+/* Staff header — Piano button sits beside the staff, piano itself is a pop-up */
+.staff-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:18px}
+.staff-head .label{margin-bottom:0}
+.piano-open-btn{flex:0 0 auto;min-height:40px;padding:8px 16px;font-size:.95rem}
+.piano-overlay{position:fixed;inset:0;z-index:60;display:flex;align-items:center;justify-content:center;padding:18px}
+.piano-overlay[hidden]{display:none}
+.piano-backdrop{position:absolute;inset:0;background:rgba(20,15,5,.55);backdrop-filter:blur(3px)}
+.piano-dialog{position:relative;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:20px;width:min(820px,100%);max-height:90vh;overflow:auto;box-shadow:0 24px 60px rgba(0,0,0,.28)}
+.piano-dialog-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:8px}
+.piano-dialog-title{font-family:"DM Serif Display",serif;font-size:1.55rem;line-height:1.1}
+.piano-close{flex:0 0 44px;width:44px;height:44px;min-height:44px;border-radius:50%;border:1px solid var(--line);background:var(--chip);color:var(--ink);font-size:1.5rem;line-height:1;display:grid;place-items:center;padding:0}
+.piano-close:focus-visible,.piano-open-btn:focus-visible{outline:3px solid var(--accent2);outline-offset:2px}
+.hero-top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.about-open-btn{flex:0 0 auto;min-height:40px;padding:8px 18px;font-size:.95rem}
+.about-overlay{position:fixed;inset:0;z-index:70;display:flex;align-items:center;justify-content:center;padding:18px}
+.about-overlay[hidden]{display:none}
+.about-backdrop{position:absolute;inset:0;background:rgba(20,15,5,.55);backdrop-filter:blur(3px)}
+.about-dialog{position:relative;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:22px;width:min(680px,100%);max-height:90vh;overflow:auto;box-shadow:0 24px 60px rgba(0,0,0,.28)}
+.about-dialog-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:10px}
+.about-dialog-title{font-family:"DM Serif Display",serif;font-size:1.65rem;line-height:1.1}
+.about-close{flex:0 0 44px;width:44px;height:44px;min-height:44px;border-radius:50%;border:1px solid var(--line);background:var(--chip);color:var(--ink);font-size:1.5rem;line-height:1;display:grid;place-items:center;padding:0;cursor:pointer}
+.about-close:focus-visible,.about-open-btn:focus-visible{outline:3px solid var(--accent2);outline-offset:2px}
+.about-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}
+.about-stats .stat{box-shadow:none}
+@media(max-width:560px){.piano-overlay{padding:10px}.piano-dialog{padding:16px}.piano{height:150px}.key-white{height:150px}.key-black{height:94px}.about-overlay{padding:10px}.about-dialog{padding:18px 16px}.about-stats{grid-template-columns:1fr}.about-dialog-title{font-size:1.45rem}}
+.piano-wrap{overflow:hidden;padding:4px 4px 6px}
+.piano{position:relative;height:168px;max-width:760px;margin:0 auto;user-select:none}
+.piano-key{position:absolute;bottom:0;border:1px solid #A8A29E;border-radius:0 0 8px 8px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:10px;font-weight:800;font-size:.82rem}
+.key-white{background:var(--piano-w);color:#44403C;height:168px;z-index:1}
+.key-black{background:var(--piano-b);color:#fff;height:104px;z-index:2;border-color:#000;font-size:.68rem;padding-bottom:8px}
+.key-white.in-scale{background:#FFEDC2} .key-white.root{background:var(--accent);color:white}
+.key-black.in-scale{background:#7C2D12} .key-black.root{background:var(--accent);color:white}
+.key-label{pointer-events:none;text-align:center;line-height:1.1}
+.key-label small{display:block;font-weight:600;font-size:.65rem;opacity:.75}
+/* Staff — plain DOM so it renders like the piano does */
+.staff{position:relative;height:150px;max-width:920px;margin:6px auto 0}
+.staff-line{position:absolute;left:0;right:0;height:2px;background:var(--ink);opacity:.5;border-radius:1px}
+/* Clef vertical placement: a treble clef's spiral must wrap the G line
+   (2nd line up, staff y=84px). In the Noto Music glyph the spiral's centre
+   sits ~0.71em below the line-box top, so top:45px at 54px puts the spiral
+   centre on y=84 — at top:28px it landed on the B line (y=68) instead. */
+.clef{position:absolute;left:0;top:45px;font-size:54px;line-height:1;color:var(--ink);font-family:"Noto Music","Segoe UI Symbol","Bravura",serif;pointer-events:none}
+.sledger{position:absolute;height:2px;width:32px;background:var(--ink);opacity:.5;border-radius:1px;transform:translate(-50%,-50%)}
+.sacc{position:absolute;transform:translate(-50%,-50%);font-size:1.1rem;font-weight:700;color:var(--ink);pointer-events:none}
+.skey{position:absolute;transform:translate(-50%,-50%);font-size:1.35rem;line-height:1;font-weight:700;color:var(--ink);pointer-events:none}
+.snote{position:absolute;transform:translate(-50%,-50%);width:22px;height:18px;background:none;border:0;padding:0;min-height:0;color:var(--ink)}
+.snote .shead{position:absolute;left:50%;top:50%;width:17px;height:12px;border-radius:50%;background:currentColor;transform:translate(-50%,-50%) rotate(-16deg)}
+.snote .sstem{position:absolute;width:2px;height:46px;background:currentColor}
+.snote.root{color:var(--accent)}
+.snote.playing{color:var(--accent2)}
+.snote:focus-visible{outline:3px solid var(--accent2);outline-offset:2px;border-radius:50%}
+/* Modes table */
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.94rem;min-width:640px}
+th,td{padding:11px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+tr.clickable{cursor:pointer} tr.clickable:hover td{background:var(--accent-soft)}
+tr.mode-playing td{background:var(--accent-soft)}
+.bright{height:8px;border-radius:999px;background:linear-gradient(90deg,#78350F,#F59E0B,#FDE68A)}
+/* Circle */
+.circle-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px;align-items:start}
+.circle-layout>*{min-width:0}
+@media(max-width:900px){.circle-layout{grid-template-columns:minmax(0,1fr)}}
+/* Circle wheel — plain HTML buttons on two rings, rendered in the markup itself (no SVG, no JS needed to appear) */
+.wheel{position:relative;width:min(500px,100%);aspect-ratio:1/1;margin:0 auto;border-radius:50%}
+.wheel-disc{position:absolute;border-radius:50%;pointer-events:none}
+.disc-maj{inset:0;background:#F7DFAE;border:3px solid #8A6D1F}
+.disc-min{inset:17%;background:#BFE3DB;border:2.5px solid #17685E}
+.disc-center{inset:33.5%;background:var(--card);border:2.5px solid #8A6D1F;display:flex;align-items:center;justify-content:center;text-align:center;padding:5%;overflow:hidden}
+.disc-center span{font-size:.74rem;line-height:1.45;color:var(--muted)}
+.disc-center b{color:var(--ink);font-size:.8rem}
+.dc-compact{display:none}
+.dc-caption{display:none}
+.wheel-btn.long{flex-direction:column}
+.wheel-btn.long .wl{display:block;white-space:nowrap}
+.wheel-btn{position:absolute;transform:translate(-50%,-50%);z-index:3;border-radius:50%;aspect-ratio:1/1;min-height:0;display:flex;align-items:center;justify-content:center;font-weight:800;line-height:1.05;padding:2px;text-align:center}
+.wheel-maj{width:13%;background:#FBE3B0;border:1.5px solid #8A6D1F;color:#241A05;font-size:clamp(.78rem,2.6vw,.98rem)}
+.wheel-maj.alt{background:#F3CD8B}
+.wheel-maj.long{font-size:clamp(.52rem,1.7vw,.70rem);line-height:1.15;overflow-wrap:anywhere}
+.wheel-maj.active{background:#B45309;border-color:#7C2D12;color:#fff}
+.wheel-min{width:11%;background:#CDEAE3;border:1.5px solid #17685E;color:#07332E;font-size:clamp(.60rem,2.1vw,.80rem)}
+.wheel-min.alt{background:#A7DCD2}
+.wheel-min.long{font-size:clamp(.42rem,1.35vw,.56rem);line-height:1.2}
+.wheel-min.active{background:#0F766E;border-color:#134E4A;color:#fff}
+.wheel-btn:hover{filter:brightness(1.05)}
+.wheel-btn:focus-visible{outline:3px solid var(--accent2);outline-offset:2px}
+.key-chips{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin-top:12px}
+.key-chips .pill.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.fact-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.fact{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:13px}
+.fact b{display:block} .fact span{color:var(--muted);font-size:.9rem}
+.callout{border-radius:16px;background:var(--accent-soft);border:1px solid var(--line);padding:16px 18px;margin-top:16px}
+.callout p{margin:0}
+/* Chords */
+.chord-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(138px,1fr));gap:10px;margin-top:14px}
+.chord-card{border:1px solid var(--line);background:var(--bg2);border-radius:16px;padding:14px;text-align:left;color:var(--ink);width:100%}
+.chord-card.active{border-color:var(--accent2);box-shadow:inset 0 0 0 2px var(--accent2)}
+.chord-card .roman{font-family:"JetBrains Mono",monospace;color:var(--accent);font-weight:700;font-size:.9rem}
+.chord-card b{display:block;font-size:1.35rem;margin:2px 0} .chord-card span{color:var(--muted);font-size:.86rem}
+.prog-list{display:grid;gap:10px;margin-top:14px}
+.prog{border:1px solid var(--line);background:var(--bg2);border-radius:16px;padding:15px}
+.prog-head{display:flex;justify-content:space-between;gap:12px;align-items:center}
+.prog-head>div{flex:1 1 auto;min-width:0}
+.prog-head>.btn{flex:0 0 auto;margin-left:auto}
+@media(max-width:560px){.prog-head{flex-wrap:wrap}}
+.prog-seq{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:10px;font-family:"JetBrains Mono",monospace;font-weight:700}
+.prog-seq .arr{color:var(--muted)} .prog-chord{background:var(--chip);border:1px solid var(--line);padding:7px 10px;border-radius:999px;text-align:center}
+.prog-chord.now{background:var(--accent2);color:white;border-color:var(--accent2)}
+.small{font-size:.9rem;color:var(--muted)} .two{display:grid;grid-template-columns:1fr 1fr;gap:16px} @media(max-width:760px){.two{grid-template-columns:1fr}}
+.kind-badge{display:inline-block;background:var(--ink);color:var(--bg);border-radius:999px;padding:2px 9px;font-size:.75rem;font-weight:900;vertical-align:middle;text-align:center;line-height:1.35}
+/* Harmonic-minor modes table: the label is a true circle at every width,
+   matching the phone — roman numeral on the first line, chord kind on the
+   second, both centred, and the circle centred in its column. */
+#hmTable td:nth-child(2){text-align:center}
+#hmTable .kind-badge{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;width:66px;height:66px;border-radius:50%;padding:0;font-size:.8rem;line-height:1.3}
+#hmTable .kind-badge .kb-top,#hmTable .kind-badge .kb-bot{display:block;text-align:center}
+.deg-strip{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+.arp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(178px,1fr));gap:9px;margin-top:14px}
+.arp-btn{text-align:left;border:1px solid var(--line);background:var(--bg2);color:var(--ink);border-radius:14px;padding:11px 12px;width:100%}
+.arp-btn b{display:block} .arp-btn span{font-size:.82rem;color:var(--muted)}
+.arp-btn.active{border-color:var(--accent2);background:var(--accent-soft);box-shadow:inset 0 0 0 1px var(--accent2)}
+.minirow{display:flex;gap:6px;margin-top:9px}
+.mini{flex:1;border:1px solid var(--line);background:var(--ink);color:var(--bg);border-radius:999px;padding:7px 6px;font-weight:800;font-size:.82rem;min-height:38px}
+.mini.alt{background:var(--card);color:var(--ink)}
+.circle-detail{margin-top:14px}
+.circle-detail .notes{margin:8px 0}
+/* Listen in D — all dropdown scales anchored on D */
+.listen-group-label{font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;font-weight:900;color:var(--accent);margin:22px 0 4px}
+.listen-group-label:first-of-type{margin-top:6px}
+.listen-list{display:grid;gap:9px;margin-top:10px}
+.listen-row{display:flex;gap:14px;align-items:center;justify-content:space-between;border:1px solid var(--line);background:var(--bg2);border-radius:16px;padding:13px 15px}
+.listen-row.playing{border-color:var(--accent2);background:var(--accent-soft);box-shadow:inset 0 0 0 1px var(--accent2)}
+.listen-main{flex:1 1 auto;min-width:0}
+.listen-name{font-weight:900;font-size:1.02rem;line-height:1.25}
+.listen-name span{color:var(--muted);font-weight:600;font-size:.88rem}
+.listen-notes{font-family:"JetBrains Mono",monospace;font-size:.84rem;font-weight:700;letter-spacing:.04em;margin-top:3px;overflow-wrap:break-word}
+.listen-meta{font-size:.86rem;color:var(--muted);margin-top:2px;line-height:1.45}
+.listen-row .btn{flex:0 0 auto;white-space:nowrap}
+@media(max-width:640px){.listen-row{flex-wrap:wrap}.listen-row .btn{flex:1 1 100%;width:100%}}
+footer{margin-top:44px;border-top:1px solid var(--line);padding-top:18px;color:var(--muted);font-size:.9rem}
+input[type=range]{accent-color:var(--accent)}
+/* Phone layout — narrow-screen tightening so nothing crowds, wraps badly,
+   or overflows: the staff clef stays inside the staff (clear of the Piano
+   button), At a Glance stacks label-over-value instead of squeezing two
+   columns, and controls/buttons reflow to the available width. */
+@media(max-width:640px){
+  .wrap{padding:0 12px 44px}
+  .hero{padding:24px 0 4px}
+  h1{font-size:2.35rem}
+  .lede{font-size:1rem}
+  .hero-stats{gap:8px}
+  .stat{flex:1 1 calc(50% - 4px);padding:9px 11px}
+  .stat span{font-size:.78rem}
+  .nav{top:8px;padding:5px;gap:2px;margin:14px 0 16px}
+  .nav a{font-size:.78rem;padding:6px 9px;min-height:34px}
+  section{margin-top:30px;scroll-margin-top:72px}
+  .sec-head{gap:12px}
+  .num{width:36px;height:36px;flex-basis:36px;font-size:.95rem}
+  h2{font-size:1.65rem}
+  .sub{font-size:.94rem}
+  .card{padding:16px 14px;border-radius:16px;margin-top:14px}
+  .controls,.controls-top{gap:16px}
+  .pill{padding:7px 11px;min-height:38px;font-size:.92rem}
+  .seg{width:100%}
+  .seg button{flex:1 1 0;padding:8px 4px;font-size:.88rem;white-space:nowrap}
+  .now-head{gap:14px}
+  .big-name{font-size:1.62rem;line-height:1.08}
+  .mode-picker{padding:12px}
+  .picker-row{gap:8px;grid-template-columns:.8fr 1.5fr}
+  /* Staff header: label and Piano button share one row, button never wraps
+     under the label; the staff itself gets extra height and a smaller,
+     lower clef so the glyph cannot spill up over the button. */
+  .staff-head{flex-wrap:nowrap;align-items:flex-start;gap:10px;margin-top:20px;margin-bottom:4px;position:relative;z-index:2}
+  .staff-head .label{font-size:.66rem;letter-spacing:.09em;line-height:1.45;padding-top:5px;min-width:0}
+  .piano-open-btn{min-height:38px;padding:7px 13px;font-size:.9rem;white-space:nowrap}
+  .staff{height:168px;margin-top:0}
+  .clef{font-size:40px;top:56px} /* spiral centre on the G line, same rule as desktop: 56 + 0.71×40 ≈ 84 */
+  .snote{width:20px;height:16px}
+  .snote .shead{width:15px;height:11px}
+  .snote .sstem{height:40px}
+  .sacc{font-size:1rem}
+  .skey{font-size:1.15rem}
+  /* At a Glance: stack label above value — the two-column squeeze is what
+     broke "Pattern" and "Card label" values across lines. */
+  .kv{grid-template-columns:1fr;gap:0;font-size:.95rem}
+  .kv dt{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;margin-top:12px}
+  .kv dt:first-child{margin-top:2px}
+  .kv dd{line-height:1.45;overflow-wrap:break-word}
+  #kvPattern{font-family:"JetBrains Mono",monospace;font-size:.86rem;white-space:nowrap}
+  .formula{font-size:.82rem;padding:9px 10px}
+  .playrow{gap:8px}
+  .playrow .btn{flex:1 1 calc(50% - 4px);padding:11px 8px;font-size:.92rem}
+  .fact-grid{grid-template-columns:1fr}
+  .chord-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}
+  .arp-grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+  table{font-size:.88rem;min-width:560px}
+  th,td{padding:9px 8px}
+  /* Pills: centre the text inside every pill on phones. The dark label
+     pills in the harmonic-minor modes table ("I · Min", "II · Dim" …)
+     wrap onto two lines at this width and inherited the table cell's
+     left alignment, so their lines sat off-centre in the pill; centre
+     the pill in its column and the text within the pill. */
+  .pill,.kind-badge,.prog-chord,.note-chip,.explain-toggle{text-align:center}
+  .explain-toggle{justify-content:center}
+  #hmTable td:nth-child(2){text-align:center}
+  .prog-head>.btn{white-space:nowrap}
+  .disc-center span{font-size:.66rem}
+  /* Circle of fifths on phones: the full centre wording ("Clockwise = up a
+     perfect 5th / Backwards = 4ths") is wider than the centre disc at phone
+     width — it wrapped to five lines, spilled out of the white circle and
+     collided with the inner-ring buttons (Am above, the dual minors below).
+     Show a compact two-line version inside the disc instead, and carry the
+     full wording in the caption under the wheel. */
+  .dc-full{display:none}
+  .dc-compact{display:block;font-size:.82rem;font-weight:800;color:var(--ink);line-height:1.5;letter-spacing:.01em}
+  .dc-caption{display:block;margin-top:6px}
+  .disc-center{padding:2%}
+  /* Dual enharmonic labels: exactly two stacked lines (name / name) at a
+     fixed small size, on slightly wider inner buttons, so the "/" can never
+     strand on its own line and spill out of the circle. */
+  .wheel-min.long{width:12.5%;font-size:.52rem;line-height:1.3}
+  .wheel-maj.long{font-size:.62rem;line-height:1.25}
+  .wheel-min{font-size:.68rem}
+  .nav{background:color-mix(in srgb,var(--bg) 96%, transparent)}
+  footer{font-size:.85rem}
+}
+@media(max-width:380px){
+  .nav a{font-size:.74rem;padding:6px 7px}
+  .seg button{font-size:.8rem}
+  .big-name{font-size:1.48rem}
+  #kvPattern{font-size:.78rem}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <div class="hero-top">
+      <div class="eyebrow">Interactive music theory • Listen as you learn</div>
+      <button type="button" class="btn secondary about-open-btn" id="openAboutBtn" aria-haspopup="dialog" aria-controls="aboutOverlay">About</button>
+    </div>
+    <h1>Scales, modes<br>&amp; <em>harmony</em></h1>
+  </header>
+
+  <div class="about-overlay" id="aboutOverlay" hidden role="dialog" aria-modal="true" aria-labelledby="aboutDialogTitle">
+    <div class="about-backdrop" data-close-about></div>
+    <div class="about-dialog">
+      <div class="about-dialog-head">
+        <div>
+          <div class="label" style="margin:0 0 4px">About</div>
+          <div class="about-dialog-title" id="aboutDialogTitle">Scales, modes &amp; harmony</div>
+        </div>
+        <button type="button" class="about-close" id="closeAboutBtn" aria-label="Close About">×</button>
+      </div>
+      <p class="lede" style="max-width:none;margin:0">Pick a tonic, pick a scale, and <strong>hear it</strong> — on the piano, note by note, or played end to end. Then see how those same notes build the circle of fifths and the chord progressions behind most of the music you play.</p>
+      <div class="about-stats">
+        <div class="stat"><b>20 scales</b><span>7 major modes · 7 harmonic-minor modes · melodic minor, pentatonics, blues, whole-tone &amp; diminished</span></div>
+        <div class="stat"><b>22 chords</b><span>Triads to 13ths — block &amp; arpeggio</span></div>
+        <div class="stat"><b>12 tonics</b><span>Every key, correctly spelled</span></div>
+        <div class="stat"><b>10 progressions</b><span>Incl. the common I–IV–V · transposed to your key, playable</span></div>
+        <div class="stat"><b>Piano tone</b><span>Played on piano at a moderate tempo</span></div>
+      </div>
+    </div>
+  </div>
+
+  <nav class="nav" aria-label="Sections">
+    <a href="#explorer">① Scale Explorer</a><a href="#modes">② Modes Compared</a><a href="#circle">③ Circle of Fifths</a><a href="#chords">④ Chords &amp; Progressions</a><a href="#arpeggios">⑤ Chords &amp; Arpeggios</a><a href="#listen-d">⑥ All Scales in D</a>
+  </nav>
+
+  <!-- 1 EXPLORER -->
+  <section id="explorer">
+    <div class="sec-head"><div class="num">1</div><div class="sec-head-main"><div class="sec-title-row"><h2>Scale explorer</h2><button type="button" class="explain-toggle" aria-expanded="false" aria-controls="explain-1"><span class="explain-label">Explanation</span><span class="explain-chev" aria-hidden="true">▾</span></button></div><div class="explain-panel" id="explain-1" hidden><p class="sub">A scale is a pattern of whole steps (W = 2 semitones) and half steps (H = 1 semitone) stretched across an octave. Change the pattern and you change the entire mood — even when you start on the same note.</p></div></div></div>
+
+    <div class="card">
+      <div class="now single">
+        <div>
+          <div class="now-head">
+            <div class="now-head-main">
+              <div class="label" id="nowKicker">Now exploring</div>
+              <div class="big-name" id="nowName">C Ionian (Major)</div>
+              <p id="nowDesc" style="color:var(--muted);margin:8px 0 0"></p>
+            </div>
+            <div class="mode-picker">
+              <div class="picker-row">
+                <div class="picker-field">
+                  <label class="label" for="tonicSelect" style="margin-bottom:6px">Tonic</label>
+                  <select id="tonicSelect" aria-label="Choose a tonic (root note)"></select>
+                </div>
+                <div class="picker-field">
+                  <label class="label" for="scaleSelect" style="margin-bottom:6px">Scale / mode</label>
+                  <select id="scaleSelect" aria-label="Choose a scale or mode"></select>
+                </div>
+              </div>
+              <p class="small" style="margin:8px 0 0">Pick a tonic and a mode here — the notes, staff and piano update in place.</p>
+              <p class="small" id="rootAltNote" style="margin:8px 0 0"></p>
+            </div>
+          </div>
+          <div class="staff-head">
+            <div class="label">On the staff — treble clef, one octave</div>
+            <button type="button" class="btn secondary piano-open-btn" id="openPianoBtn" aria-haspopup="dialog" aria-controls="pianoOverlay">🎹 Piano</button>
+          </div>
+          <div class="staff" id="staff" role="group" aria-label="Musical staff showing the notes of the selected scale, one octave"></div>
+          <div class="piano-overlay" id="pianoOverlay" hidden role="dialog" aria-modal="true" aria-labelledby="pianoDialogTitle">
+            <div class="piano-backdrop" data-close-piano></div>
+            <div class="piano-dialog">
+              <div class="piano-dialog-head">
+                <div>
+                  <div class="label" style="margin:0 0 4px">Piano</div>
+                  <div class="piano-dialog-title" id="pianoDialogTitle"><span id="pianoTitle">C Ionian (Major)</span></div>
+                </div>
+                <button type="button" class="piano-close" id="closePianoBtn" aria-label="Close piano">×</button>
+              </div>
+              <div class="piano-wrap"><div class="piano" id="piano" aria-label="Piano keyboard"></div></div>
+              <p class="small" style="text-align:center;margin:8px 0 0">One octave, tonic to tonic. Gold = tonic · Pale gold = in the scale · White / black = not in this scale. Tap a key to hear it.</p>
+            </div>
+          </div>
+          <div class="label" style="margin-top:18px">At a glance</div>
+          <dl class="kv">
+            <dt>Card label</dt><dd id="kvKind">—</dd>
+            <dt>Pattern</dt><dd id="kvPattern">—</dd>
+            <dt>Formula</dt><dd id="kvFormula">—</dd>
+            <dt>Character</dt><dd id="kvChar">—</dd>
+            <dt>Parent major</dt><dd id="kvParent">—</dd>
+            <dt>Heard in</dt><dd id="kvUse">—</dd>
+          </dl>
+          <div class="formula" id="formulaBox"></div>
+          <div class="playrow">
+            <button class="btn" id="playAsc">▶ Play ascending</button>
+            <button class="btn secondary" id="playBoth">▶ Up &amp; down</button>
+            <button class="btn secondary" id="playDesc">▶ Descending</button>
+            <button class="btn teal" id="stopBtn">■ Stop</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 MODES -->
+  <section id="modes">
+    <div class="sec-head"><div class="num">2</div><div class="sec-head-main"><div class="sec-title-row"><h2>The seven modes, compared</h2><button type="button" class="explain-toggle" aria-expanded="false" aria-controls="explain-2"><span class="explain-label">Explanation</span><span class="explain-chev" aria-hidden="true">▾</span></button></div><div class="explain-panel" id="explain-2" hidden><p class="sub">The modes are not seven different sets of notes — they are <strong>one</strong> set of notes started in seven different places. Take the C-major scale and start on D and you get D Dorian; start on E, E Phrygian, and so on. Same notes, different “home.” That is why each mode feels different: the half steps fall in different places against the tonic.</p></div></div></div>
+    <div class="card">
+      <p class="small" style="margin-top:0">Tap a row to hear that mode played right here, starting on its own tonic — your tonic and scale in the explorer above stay exactly as they are.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Mode</th><th>Starts on</th><th>Notes</th><th>Character</th><th>Brightness</th></tr></thead>
+        <tbody id="modeTable"></tbody>
+      </table></div>
+      <div class="callout"><p><strong>Reference thread — degrees of the natural minor scale:</strong> every alteration on this page is measured against natural minor (Aeolian): <b>1 · 2 · ♭3 · 4 · 5 · ♭6 · ♭7 · 8</b>. In your selected tonic that is:</p><div class="deg-strip" id="natMinStrip"></div><p style="margin-top:8px">Harmonic minor changes just one degree of it (♭7 → 7); melodic minor changes two (♭6 → 6, ♭7 → 7). If you know where a scale sits against this thread, you know its sound.</p></div>
+      <h3 style="margin-top:22px;font-size:1.25rem">The seven harmonic-minor modes</h3>
+      <p class="small">Harmonic minor has modes too — rotate it, just as with major. The rows below are the modes of your selected tonic’s harmonic-minor scale: same notes, seven different homes, each starting on the next degree and labelled with the kind of tonic chord it produces (Maj / Min / Dim / Aug). Tap a row to hear it played right here, on its own tonic, without changing the explorer above.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Mode</th><th>Label</th><th>Degrees</th><th>Pattern</th><th>Feel</th></tr></thead>
+        <tbody id="hmTable"></tbody>
+      </table></div>
+      <div class="callout"><p><strong>The violin shortcut:</strong> to find D Dorian, don’t memorise a new pattern — just play the C-major scale (D Dorian’s parent) but treat D as home. Your fingers already know the notes; only the centre of gravity moves. The “Parent major” line in the explorer tells you that parent for any tonic.</p></div>
+      <div class="two" style="margin-top:16px">
+        <div><h3>Beyond the modes</h3><p class="small">Harmonic minor raises the 7th degree (in A minor, G→G♯) to create a strong pull back to the tonic — the sound of classical minor and much film music. Melodic minor raises the 6th and 7th going up, then (in classical practice) lowers them again coming down. Pentatonic scales drop the “risky” notes — major pentatonic omits the 4th and 7th, which is why it almost never clashes. The blues scale adds the flattened 5th (the “blue note”) to minor pentatonic.</p></div>
+        <div><h3>Why Locrian is the odd one out</h3><p class="small">Locrian has a flattened 2nd <em>and</em> a flattened 5th, so its tonic chord is diminished — there’s no stable “home” chord to rest on. Composers use it for fleeting tension, rarely as a whole piece’s home. Try playing it above: it sounds like it keeps wanting to fall somewhere else.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 CIRCLE -->
+  <section id="circle">
+    <div class="sec-head"><div class="num">3</div><div class="sec-head-main"><div class="sec-title-row"><h2>Circle of fifths</h2><button type="button" class="explain-toggle" aria-expanded="false" aria-controls="explain-3"><span class="explain-label">Explanation</span><span class="explain-chev" aria-hidden="true">▾</span></button></div><div class="explain-panel" id="explain-3" hidden><p class="sub">Move clockwise and each key is a perfect fifth (7 semitones) above the last, and its signature moves one step toward sharps — adding a sharp, or removing a flat. Move anticlockwise (a fifth below, or a fourth above) and the signature moves one step toward flats — adding a flat, or removing a sharp. Neighbours on the circle share almost all their notes, which is why chord changes between them feel smooth.</p></div></div></div>
+    <div class="card"><div class="circle-layout">
+      <div class="circle-col"><div class="wheel" role="group" aria-label="Interactive circle of fifths — tap a major key on the amber outer ring or its relative minor on the teal inner ring">
+        <div class="wheel-disc disc-maj"></div><div class="wheel-disc disc-min"></div>
+        <div class="wheel-disc disc-center"><span class="dc-full">Clockwise<br><b>= up a perfect 5th</b><br>Backwards = 4ths</span><span class="dc-compact" aria-hidden="true">↻ up a 5th<br>↺ up a 4th</span></div>
+        <button type="button" class="wheel-btn wheel-maj active" data-i="0" style="left:50%;top:8.5%" aria-label="Select C major, relative minor Am">C</button>
+        <button type="button" class="wheel-btn wheel-min active" data-i="0" style="left:50%;top:25%" aria-label="Select C major, relative minor Am">Am</button>
+        <button type="button" class="wheel-btn wheel-maj alt" data-i="1" style="left:70.8%;top:14.1%" aria-label="Select G major, relative minor Em">G</button>
+        <button type="button" class="wheel-btn wheel-min alt" data-i="1" style="left:62.5%;top:28.4%" aria-label="Select G major, relative minor Em">Em</button>
+        <button type="button" class="wheel-btn wheel-maj" data-i="2" style="left:85.9%;top:29.2%" aria-label="Select D major, relative minor Bm">D</button>
+        <button type="button" class="wheel-btn wheel-min" data-i="2" style="left:71.7%;top:37.5%" aria-label="Select D major, relative minor Bm">Bm</button>
+        <button type="button" class="wheel-btn wheel-maj alt" data-i="3" style="left:91.5%;top:50%" aria-label="Select A major, relative minor F sharp m">A</button>
+        <button type="button" class="wheel-btn wheel-min alt" data-i="3" style="left:75%;top:50%" aria-label="Select A major, relative minor F sharp m">F♯m</button>
+        <button type="button" class="wheel-btn wheel-maj" data-i="4" style="left:85.9%;top:70.8%" aria-label="Select E major, relative minor C sharp m">E</button>
+        <button type="button" class="wheel-btn wheel-min" data-i="4" style="left:71.7%;top:62.5%" aria-label="Select E major, relative minor C sharp m">C♯m</button>
+        <button type="button" class="wheel-btn wheel-maj alt long" data-i="5" style="left:70.8%;top:85.9%" aria-label="Select B / C flat major, relative minor G sharp m / A flat m"><span class="wl">B /</span><span class="wl">C♭</span></button>
+        <button type="button" class="wheel-btn wheel-min alt long" data-i="5" style="left:62.5%;top:71.7%" aria-label="Select B / C flat major, relative minor G sharp m / A flat m"><span class="wl">G♯m /</span><span class="wl">A♭m</span></button>
+        <button type="button" class="wheel-btn wheel-maj long" data-i="6" style="left:50%;top:91.5%" aria-label="Select F sharp / G flat major, relative minor D sharp m / E flat m"><span class="wl">F♯ /</span><span class="wl">G♭</span></button>
+        <button type="button" class="wheel-btn wheel-min long" data-i="6" style="left:50%;top:75%" aria-label="Select F sharp / G flat major, relative minor D sharp m / E flat m"><span class="wl">D♯m /</span><span class="wl">E♭m</span></button>
+        <button type="button" class="wheel-btn wheel-maj alt long" data-i="7" style="left:29.2%;top:85.9%" aria-label="Select C sharp / D flat major, relative minor A sharp m / B flat m"><span class="wl">C♯ /</span><span class="wl">D♭</span></button>
+        <button type="button" class="wheel-btn wheel-min alt long" data-i="7" style="left:37.5%;top:71.7%" aria-label="Select C sharp / D flat major, relative minor A sharp m / B flat m"><span class="wl">A♯m /</span><span class="wl">B♭m</span></button>
+        <button type="button" class="wheel-btn wheel-maj" data-i="8" style="left:14.1%;top:70.8%" aria-label="Select A flat major, relative minor Fm">A♭</button>
+        <button type="button" class="wheel-btn wheel-min" data-i="8" style="left:28.3%;top:62.5%" aria-label="Select A flat major, relative minor Fm">Fm</button>
+        <button type="button" class="wheel-btn wheel-maj alt" data-i="9" style="left:8.5%;top:50%" aria-label="Select E flat major, relative minor Cm">E♭</button>
+        <button type="button" class="wheel-btn wheel-min alt" data-i="9" style="left:25%;top:50%" aria-label="Select E flat major, relative minor Cm">Cm</button>
+        <button type="button" class="wheel-btn wheel-maj" data-i="10" style="left:14.1%;top:29.2%" aria-label="Select B flat major, relative minor Gm">B♭</button>
+        <button type="button" class="wheel-btn wheel-min" data-i="10" style="left:28.3%;top:37.5%" aria-label="Select B flat major, relative minor Gm">Gm</button>
+        <button type="button" class="wheel-btn wheel-maj alt" data-i="11" style="left:29.2%;top:14.1%" aria-label="Select F major, relative minor Dm">F</button>
+        <button type="button" class="wheel-btn wheel-min alt" data-i="11" style="left:37.5%;top:28.4%" aria-label="Select F major, relative minor Dm">Dm</button>
+      </div><p class="small" style="text-align:center"><strong>Tap a segment of the wheel.</strong> Amber outer ring = major key · Teal inner ring = its relative minor (same key signature, tonic a minor 3rd below).<span class="dc-caption">Clockwise = up a perfect 5th · Backwards = up a 4th.</span></p></div>
+      <div>
+        <div class="label">Selected key</div>
+        <div class="big-name" id="circleName">C major</div>
+        <p class="small" id="circleDesc">No sharps or flats. Its relative minor is A minor — the only minor key with no sharps or flats either.</p>
+        <div class="fact-grid">
+          <div class="fact"><b>Key signature</b><span id="cfSig">—</span></div>
+          <div class="fact"><b>Relative minor / major</b><span id="cfRel">—</span></div>
+          <div class="fact"><b>Dominant (a 5th up)</b><span id="cfDom">—</span></div>
+          <div class="fact"><b>Subdominant (a 5th down)</b><span id="cfSub">—</span></div>
+        </div>
+        <div class="circle-detail">
+          <div class="label">Tonic triad</div>
+          <p style="margin:0"><b id="cfTriad">C – E – G</b> <span class="small" id="cfEnharm"></span></p>
+          <div class="label" style="margin-top:12px">Scale notes</div>
+          <div class="deg-strip" id="cfScale"></div>
+          <div class="label" style="margin-top:12px">Diatonic chords in this key</div>
+          <p class="small" id="cfChords" style="margin:0;font-weight:600;color:var(--ink)"></p>
+          <p class="small">Selecting a key on the wheel also sets the tonic everywhere else on this page — the scale explorer, diatonic triads, progressions and the chord &amp; arpeggio explorer all follow it.</p>
+        </div>
+        <div class="playrow"><button class="btn" id="useCircleKey">Go to the scale explorer ↑</button><button class="btn secondary" id="playCircleScale">▶ Hear its major scale</button><button class="btn secondary" id="playCircleTriad">▶ Hear its tonic triad</button></div>
+        <div class="callout"><p><strong>Order of flats &amp; sharps:</strong> flats are always added in the order <b>B♭ · E♭ · A♭ · D♭ · G♭ · C♭ · F♭</b> (“Battle Ends And Down Goes Charles' Father”). Sharps run in exactly the reverse order: <b>F♯ · C♯ · G♯ · D♯ · A♯ · E♯ · B♯</b>. So a key signature with 3 flats is always B♭, E♭, A♭ (E♭ major / C minor) — never any other three.</p><p style="margin-top:8px"><strong>How players actually use it:</strong> ① Count sharps/flats to identify a key signature at a glance. ② Find the relative minor instantly (three steps clockwise inside). ③ Plan modulations — moving one step changes only one note, moving across the circle (e.g. C → F♯) changes almost everything and feels dramatic. ④ The I–IV–V chords of any key are three neighbours sitting side by side on the circle. Clockwise is the circle of <em>fifths</em>; read counter-clockwise and the same wheel is the circle of <em>fourths</em>.</p></div>
+      </div>
+    </div></div>
+  </section>
+
+  <!-- 4 CHORDS -->
+  <section id="chords">
+    <div class="sec-head"><div class="num">4</div><div class="sec-head-main"><div class="sec-title-row"><h2>Chords &amp; progressions</h2><button type="button" class="explain-toggle" aria-expanded="false" aria-controls="explain-4"><span class="explain-label">Explanation</span><span class="explain-chev" aria-hidden="true">▾</span></button></div><div class="explain-panel" id="explain-4" hidden><p class="sub">Stack every other note of a scale and you get its chords. In a major key the pattern of chord qualities is always the same — <strong>I major, ii minor, iii minor, IV major, V major, vi minor, vii° diminished</strong> — whatever the tonic. Roman numerals name the job a chord does, so the same progression can be played in any key.</p></div></div></div>
+
+    <div class="card">
+      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between">
+        <div><div class="label">Diatonic triads in</div><div class="big-name" id="chordKeyName">C major</div></div>
+        <div class="seg" id="chordModeSeg"><button data-cm="major" class="active">Major key</button><button data-cm="minor">Natural minor key</button></div>
+      </div>
+      <div class="chord-grid" id="chordGrid"></div>
+      <p class="small">Tap a chord to hear it — first as a block, then arpeggiated. Notice V in a minor key is usually played <em>major</em> (borrowed from harmonic minor) because its raised 3rd is the leading note that pulls home to i.</p>
+    </div>
+
+    <div class="card">
+      <h3 style="font-size:1.25rem">Progressions worth knowing by ear</h3>
+      <p class="small" style="margin-top:0">All progressions follow the tonic you chose in the explorer — currently <b id="progKeyLabel">C</b>. Major progressions are in that major key; the two marked “Minor” are in its parallel minor (same tonic, minor key). Press play and follow the highlight — each chord gets about a second and a half.</p>
+      <div class="prog-list" id="progList"></div>
+      <div class="callout"><p><strong>Reading the numerals:</strong> UPPERCASE = major chord, lowercase = minor, ° = diminished. The number is the scale degree the chord is built on. So in C major, <strong>ii–V–I</strong> is D minor → G major → C major; in G major it’s A minor → D major → G major. Same jobs, different notes — that’s the whole idea.</p></div>
+    </div>
+  </section>
+
+  <!-- 5 CHORDS & ARPEGGIOS -->
+  <section id="arpeggios">
+    <div class="sec-head"><div class="num">5</div><div class="sec-head-main"><div class="sec-title-row"><h2>Chords &amp; arpeggios</h2><button type="button" class="explain-toggle" aria-expanded="false" aria-controls="explain-5"><span class="explain-label">Explanation</span><span class="explain-chev" aria-hidden="true">▾</span></button></div><div class="explain-panel" id="explain-5" hidden><p class="sub">Twenty-two chord types built on your selected tonic (<b id="arpRootLabel">C</b>), each shown with the scale degrees it is built from — the same degree language as the scales above. An <strong>arpeggio</strong> is simply the chord played one note at a time; for triads and seventh chords the arpeggio finishes on the tonic an octave up.</p></div></div></div>
+    <div class="card">
+      <div class="now">
+        <div>
+          <div class="label">Now selected</div>
+          <div class="big-name"><span id="arpName">Major Triad</span> <span class="kind-badge" id="arpSymbol">C</span></div>
+          <p class="small" id="arpDesc" style="margin:8px 0 0"></p>
+          <div class="notes" id="arpNotes"></div>
+          <div class="playrow">
+            <button class="btn" id="arpBlock">▶ Block chord</button>
+            <button class="btn secondary" id="arpUp">▶ Arpeggio up</button>
+            <button class="btn secondary" id="arpUpDown">▶ Arpeggio up &amp; down</button>
+          </div>
+        </div>
+        <div>
+          <div class="label">At a glance</div>
+          <dl class="kv">
+            <dt>Degrees</dt><dd id="arpDegrees">1 · 3 · 5</dd>
+            <dt>Notes</dt><dd id="arpNoteNames">C · E · G</dd>
+            <dt>Family</dt><dd id="arpFamily">Triad</dd>
+          </dl>
+          <div class="formula">Extensions (9, 11, 13) are the 2nd, 4th and 6th degrees continued into the next octave — that is why a 13th chord can contain seven notes. ♭9 and ♯9 are the 9th degree lowered or raised by a semitone.</div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="label">All 22 chord types — tap a card to select it, or use its own Block / Arp buttons</div>
+      <div class="arp-grid" id="arpGrid"></div>
+    </div>
+  </section>
+
+  <!-- 6 ALL SCALES IN D -->
+  <section id="listen-d">
+    <div class="sec-head"><div class="num">6</div><div class="sec-head-main"><div class="sec-title-row"><h2>All scales in D — listen &amp; compare</h2><button type="button" class="explain-toggle" aria-expanded="false" aria-controls="explain-6"><span class="explain-label">Explanation</span><span class="explain-chev" aria-hidden="true">▾</span></button></div><div class="explain-panel" id="explain-6" hidden><p class="sub">Every scale and mode from the Scale / mode dropdown above, rebuilt on the <strong>same tonic — D</strong> — so the starting note never changes and only the pattern changes. That is the fairest way to hear what a mode really does: D Ionian (major) and D Dorian start on the same D, but the half steps fall in different places, so one sounds bright and settled and the other minor but hopeful. Work down the list, or press <strong>Play all in order</strong> and listen to the whole set back to back.</p></div></div></div>
+    <div class="card">
+      <p class="small" style="margin-top:0">Anchored in <b>D</b> throughout — D major, the three D minors, D Dorian, D Phrygian and every other variation in the dropdown, each played ascending over one octave (tonic to tonic). Playing a scale here does not change the tonic or scale you have set in the explorer above.</p>
+      <div class="playrow" style="margin-top:10px">
+        <button class="btn" id="playAllD" type="button">▶ Play all in order</button>
+        <button class="btn teal" id="stopAllD" type="button">■ Stop</button>
+        <span class="small" id="listenDStatus" role="status" aria-live="polite"></span>
+      </div>
+      <div id="listenDList"></div>
+      <div class="callout"><p><strong>How to listen:</strong> keep D fixed in your ear as “home.” In D Ionian the half steps are E–F♯ and C♯–D; move to D Dorian and the F♯ becomes F♮ and the C♯ becomes C♮, while the 6th stays B — that one comparison is the whole idea of modes in miniature. The three minors sit together in the Minor family group: natural (nothing raised), harmonic (7th raised to C♯), and melodic (6th and 7th raised, B and C♯).</p></div>
+    </div>
+  </section>
+
+  <footer>Built for listening first: every scale, chord and progression on this page is synthesised live in your browser — one octave, exact pitches, no recordings. Headphones make the lower tonic easiest to hear on a phone speaker.<br>© 2026 Jo L. All rights reserved.</footer>
+</div>
+
+<script>
+const SHARP=["C","C♯","D","D♯","E","F","F♯","G","G♯","A","A♯","B"];
+const FLAT =["C","D♭","D","E♭","E","F","G♭","G","A♭","A","B♭","B"];
+const LETTERS=["C","D","E","F","G","A","B"];
+const LETTER_PC={C:0,D:2,E:4,F:5,G:7,A:9,B:11};
+const ROOTS=[
+ {pc:0,label:"C",pref:"sharp"},{pc:1,label:"D♭",pref:"flat"},{pc:2,label:"D",pref:"sharp"},{pc:3,label:"E♭",pref:"flat"},
+ {pc:4,label:"E",pref:"sharp"},{pc:5,label:"F",pref:"flat"},{pc:6,label:"F♯",pref:"sharp"},{pc:7,label:"G",pref:"sharp"},
+ {pc:8,label:"A♭",pref:"flat"},{pc:9,label:"A",pref:"sharp"},{pc:10,label:"B♭",pref:"flat"},{pc:11,label:"B",pref:"sharp"}
+];
+/* Enharmonic alternates: every pitch that can be named as a sharp or as a flat shows both names (as on the reference wheel: C♯ / D♭, F♯ / G♭, B / C♭ …) */
+const ENHARM_DUAL={1:"C♯ / D♭",3:"D♯ / E♭",6:"F♯ / G♭",8:"G♯ / A♭",10:"A♯ / B♭",11:"B / C♭"};
+const ENHARM_ALT={1:"C♯",3:"D♯",6:"G♭",8:"G♯",10:"A♯",11:"C♭"};
+function dualRoot(r){ return ENHARM_DUAL[r.pc]||r.label; }
+function spellScale(root, intervals, letterSteps){
+  // letterSteps: letter advance per degree (defaults 0..n-1)
+  const rootName = root.label; const startLetter = rootName.replace("♯","").replace("♭","");
+  const startIdx = LETTERS.indexOf(startLetter);
+  return intervals.map((iv,i)=>{
+    const step = letterSteps ? letterSteps[i] : i;
+    const letter = LETTERS[(startIdx+step)%7];
+    const targetPc = (root.pc+iv)%12;
+    let diff = (targetPc - LETTER_PC[letter] + 12)%12; if(diff>6) diff-=12;
+    const acc = diff===0?"":diff===1?"♯":diff===-1?"♭":diff===2?"𝄪":diff===-2?"𝄫":"";
+    return letter+acc;
+  });
+}
+const SCALES=[
+ {id:"ionian",name:"Ionian",aka:"Major scale",group:"Modes",intervals:[0,2,4,5,7,9,11],pattern:"W–W–H–W–W–W–H",formula:"1 · 2 · 3 · 4 · 5 · 6 · 7",diff:"— (it is the major scale)",char:"Bright, settled, complete",use:"“Do-Re-Mi”; countless folk, pop and classical melodies",desc:"The major scale itself. Every other mode is measured against it. Its half steps fall between degrees 3–4 and 7–8, and that 7→8 half step (the leading note) is what makes melodies feel like they arrive home."},
+ {id:"dorian",name:"Dorian",aka:"Minor with a raised 6th",group:"Modes",intervals:[0,2,3,5,7,9,10],pattern:"W–H–W–W–W–H–W",formula:"1 · 2 · ♭3 · 4 · 5 · 6 · ♭7",diff:"♭3 and ♭7, but a natural 6",char:"Minor, but hopeful — never gloomy",use:"“Scarborough Fair”; Miles Davis, “So What”; much folk and rock",desc:"A minor scale with its 6th degree raised, which lifts the whole mood. It is the workhorse minor mode for jazz, folk and rock improvisation."},
+ {id:"phrygian",name:"Phrygian",aka:"Minor with a flattened 2nd",group:"Modes",intervals:[0,1,3,5,7,8,10],pattern:"H–W–W–W–H–W–W",formula:"1 · ♭2 · ♭3 · 4 · 5 · ♭6 · ♭7",diff:"♭2, ♭3, ♭6, ♭7",char:"Dark, tense, Spanish / flamenco colour",use:"Flamenco; metal riffs; film scores needing ancient menace",desc:"The flattened 2nd sits just a half step above the tonic, creating instant tension. That one note is responsible for its unmistakable Spanish and Middle-Eastern flavour."},
+ {id:"lydian",name:"Lydian",aka:"Major with a raised 4th",group:"Modes",intervals:[0,2,4,6,7,9,11],pattern:"W–W–W–H–W–W–H",formula:"1 · 2 · 3 · ♯4 · 5 · 6 · 7",diff:"♯4 only",char:"Dreamy, floating, wonder-filled",use:"The Simpsons theme; film cues for wonder and flying",desc:"The brightest mode. Raising the 4th removes the one note that pulls major back down to earth, so Lydian melodies seem to hover. Play it and compare it with Ionian — a single semitone does all of that."},
+ {id:"mixolydian",name:"Mixolydian",aka:"Major with a flattened 7th",group:"Modes",intervals:[0,2,4,5,7,9,10],pattern:"W–W–H–W–W–H–W",formula:"1 · 2 · 3 · 4 · 5 · 6 · ♭7",diff:"♭7 only",char:"Major, but bluesy and laid-back",use:"“Sweet Home Alabama”; The Beatles, “Norwegian Wood”; most blues-rock solos",desc:"Major with the leading note removed, so it never sounds quite as formal or final. That flattened 7th is the backbone of blues, rock and Celtic fiddle tunes."},
+ {id:"aeolian",name:"Aeolian",aka:"Natural minor",group:"Modes",intervals:[0,2,3,5,7,8,10],pattern:"W–H–W–W–H–W–W",formula:"1 · 2 · ♭3 · 4 · 5 · ♭6 · ♭7",diff:"♭3, ♭6, ♭7",char:"Sad, reflective, natural",use:"“Losing My Religion”; most minor-key songs you know",desc:"The natural minor scale — the relative minor of its parent major. Its lowered 6th and 7th make descents feel resigned rather than driven; harmonic minor exists largely to fix that weak pull home."},
+ {id:"locrian",name:"Locrian",aka:"Half-diminished mode",group:"Modes",intervals:[0,1,3,5,6,8,10],pattern:"H–W–W–H–W–W–W",formula:"1 · ♭2 · ♭3 · 4 · ♭5 · ♭6 · ♭7",diff:"♭2, ♭3, ♭5, ♭6, ♭7",char:"Unstable, unresolved, eerie",use:"Brief passages in jazz & metal; rarely a whole piece",desc:"The darkest mode, with a flattened 5th that undermines its own tonic chord. Beautiful as a passing colour; almost impossible to rest in."},
+ {id:"harmonic-minor",name:"Harmonic Minor",aka:"Minor with a raised 7th",group:"Minor family",intervals:[0,2,3,5,7,8,11],pattern:"W–H–W–W–H–1½–H",formula:"1 · 2 · ♭3 · 4 · 5 · ♭6 · 7",diff:"vs natural minor: raised 7",char:"Dramatic, classical, Middle-Eastern edge",use:"Bach minor works; Paganini; neoclassical metal",desc:"Raising the 7th restores the leading note in minor — creating the wide 1½-step gap between 6 and 7 that gives this scale its exotic leap. As a violinist you meet it constantly in Bach."},
+ {id:"natural-minor",name:"Natural Minor",aka:"Aeolian",group:"Minor family",intervals:[0,2,3,5,7,8,10],pattern:"W–H–W–W–H–W–W",formula:"1 · 2 · ♭3 · 4 · 5 · ♭6 · ♭7",diff:"— (the plain minor scale; nothing raised)",char:"Sad, reflective, natural",use:"“Losing My Religion”; most minor-key songs you know",desc:"The plain minor scale with nothing raised — exactly the same notes as Aeolian, the 6th mode of its relative major (C natural minor uses E♭ major's notes). Harmonic minor raises its 7th to strengthen the pull home; melodic minor raises the 6th as well to smooth the climb."},
+ {id:"harmonic-minor-alias",name:"Harmonic Minor",aka:"Minor with a raised 7th",group:"Minor family",roman:"I",kind:"Min",degrees:["1","2","♭3","4","5","♭6","7"],intervals:[0,2,3,5,7,8,11],pattern:"W–H–W–W–H–1½–H",formula:"1 · 2 · ♭3 · 4 · 5 · ♭6 · 7",diff:"vs natural minor: raised 7",char:"Dramatic, classical, Middle-Eastern edge",use:"Bach minor works; Paganini; neoclassical metal",desc:"Raising the 7th restores the leading note in minor — creating the wide 1½-step gap between 6 and 7 that gives this scale its exotic leap. As a violinist you meet it constantly in Bach. It is also mode I of the Harmonic Minor modes group, where all seven of its rotations live."},
+ {id:"melodic-minor",name:"Melodic Minor",aka:"Jazz minor (ascending form)",group:"Minor family",intervals:[0,2,3,5,7,9,11],pattern:"W–H–W–W–W–W–H",formula:"1 · 2 · ♭3 · 4 · 5 · 6 · 7",diff:"vs natural minor: raised 6 & 7",char:"Smooth, singing, bittersweet",use:"Classical melody (ascending form); jazz improvisation",desc:"Classical practice raises the 6th and 7th ascending to make a smooth climb to the tonic, then restores natural minor descending. Jazz players usually use this ascending form both ways."},
+ {id:"major-pent",name:"Major Pentatonic",aka:"Five-note major",group:"Pentatonic & blues",intervals:[0,2,4,7,9],letterSteps:[0,1,2,4,5],pattern:"W–W–1½–W–1½",formula:"1 · 2 · 3 · 5 · 6",diff:"Major minus 4 & 7",char:"Open, sunny, folk-like",use:"“Amazing Grace”; country and folk fiddle tunes",desc:"Major with the two half-step notes removed. With no semitone friction anywhere, almost any order of these notes sounds pleasant — a first improvisation scale for many players."},
+ {id:"minor-pent",name:"Minor Pentatonic",aka:"Five-note minor",group:"Pentatonic & blues",intervals:[0,3,5,7,10],letterSteps:[0,2,3,4,6],pattern:"1½–W–W–1½–W",formula:"1 · ♭3 · 4 · 5 · ♭7",diff:"Natural minor minus 2 & 6",char:"Earthy, soulful, direct",use:"Blues, rock and folk solos everywhere",desc:"The relative minor of major pentatonic — same five notes, minor home. The foundation of blues and rock soloing."},
+ {id:"blues",name:"Blues Scale",aka:"Minor pentatonic + ♭5",group:"Pentatonic & blues",intervals:[0,3,5,6,7,10],letterSteps:[0,2,3,4,4,6],pattern:"1½–W–H–H–1½–W",formula:"1 · ♭3 · 4 · ♭5 · 5 · ♭7",diff:"Minor pentatonic plus the “blue note” ♭5",char:"Gritty, expressive, vocal",use:"Blues, jazz and rock improvisation",desc:"Minor pentatonic with the flattened 5th added — the blue note. Played against major chords it creates the delicious friction that defines the blues."},
+ {id:"whole-tone",name:"Whole Tone",aka:"Six whole steps",group:"Other",intervals:[0,2,4,6,8,10],letterSteps:[0,1,2,3,4,5],pattern:"W–W–W–W–W–W",formula:"1 · 2 · 3 · ♯4 · ♯5 · ♯6",diff:"No half steps at all",char:"Floating, dreamlike, directionless",use:"Debussy; cartoon “dream sequence” harp glissandi",desc:"Only whole steps, so there are no half steps to point home — and in fact only two distinct whole-tone scales exist. Debussy built whole passages from its weightless sound."},
+];
+/* Degree tokens, roman numerals and Maj/Min/Dim/Aug card labels — consistent everywhere */
+const SCALE_META={
+ ionian:{roman:"I",kind:"Maj",group:"Major diatonic modes",degrees:["1","2","3","4","5","6","7"]},
+ dorian:{roman:"II",kind:"Min",group:"Major diatonic modes",degrees:["1","2","♭3","4","5","6","♭7"]},
+ phrygian:{roman:"III",kind:"Min",group:"Major diatonic modes",degrees:["1","♭2","♭3","4","5","♭6","♭7"]},
+ lydian:{roman:"IV",kind:"Maj",group:"Major diatonic modes",degrees:["1","2","3","♯4","5","6","7"]},
+ mixolydian:{roman:"V",kind:"Maj",group:"Major diatonic modes",degrees:["1","2","3","4","5","6","♭7"]},
+ aeolian:{roman:"VI",kind:"Min",group:"Major diatonic modes",degrees:["1","2","♭3","4","5","♭6","♭7"]},
+ locrian:{roman:"VII",kind:"Dim",group:"Major diatonic modes",degrees:["1","♭2","♭3","4","♭5","♭6","♭7"]},
+ "harmonic-minor":{roman:"I",kind:"Min",group:"Harmonic Minor modes",degrees:["1","2","♭3","4","5","♭6","7"]},
+ "natural-minor":{kind:"Min",degrees:["1","2","♭3","4","5","♭6","♭7"]},
+ "melodic-minor":{kind:"Min",degrees:["1","2","♭3","4","5","6","7"]},
+ "major-pent":{kind:"Maj",degrees:["1","2","3","5","6"]},
+ "minor-pent":{kind:"Min",degrees:["1","♭3","4","5","♭7"]},
+ blues:{kind:"Min",degrees:["1","♭3","4","♭5","5","♭7"]},
+ "whole-tone":{kind:"Aug",degrees:["1","2","3","♯4","♯5","♯6"]}
+};
+SCALES.push(
+ {id:"hm2",name:"Harmonic Minor Mode 2",aka:"Locrian ♮6",group:"Harmonic Minor modes",roman:"II",kind:"Dim",degrees:["1","♭2","♭3","4","♭5","6","♭7"],intervals:[0,1,3,5,6,9,10],pattern:"H–W–W–H–1½–H–W",formula:"1 · ♭2 · ♭3 · 4 · ♭5 · 6 · ♭7",diff:"Harmonic minor, started on degree 2",char:"Diminished, restless",use:"Passing colour over diminished chords in minor keys",desc:"Harmonic minor rotated to start on its 2nd degree — a Locrian scale whose 6th is raised (♮6 instead of ♭6). Its tonic triad is diminished, like Locrian's."},
+ {id:"hm3",name:"Harmonic Minor Mode 3",aka:"Ionian ♯5 (Ionian Augmented)",group:"Harmonic Minor modes",roman:"III",kind:"Aug",degrees:["1","2","3","4","♯5","6","7"],intervals:[0,2,4,5,8,9,11],pattern:"W–W–H–1½–H–W–H",formula:"1 · 2 · 3 · 4 · ♯5 · 6 · 7",diff:"Harmonic minor, started on degree 3",char:"Major, but expanded and strange",use:"Over augmented tonic chords; modern jazz harmony",desc:"A major scale with a raised 5th, so its tonic chord is augmented — major in shape, but stretched. It is the only Aug-labelled mode on either card."},
+ {id:"hm4",name:"Harmonic Minor Mode 4",aka:"Dorian ♯4 (Ukrainian Dorian)",group:"Harmonic Minor modes",roman:"IV",kind:"Min",degrees:["1","2","♭3","♯4","5","6","♭7"],intervals:[0,2,3,6,7,9,10],pattern:"W–H–1½–H–W–H–W",formula:"1 · 2 · ♭3 · ♯4 · 5 · 6 · ♭7",diff:"Harmonic minor, started on degree 4",char:"Minor with a bright, folk-dance lift",use:"Klezmer and Balkan folk melodies; jazz minor colour",desc:"Dorian with a raised 4th. That ♯4 gives a minor scale an unexpectedly bright, dancing quality — a staple of klezmer and Eastern-European folk music."},
+ {id:"hm5",name:"Harmonic Minor Mode 5",aka:"Phrygian Dominant",group:"Harmonic Minor modes",roman:"V",kind:"Maj",degrees:["1","♭2","3","4","5","♭6","♭7"],intervals:[0,1,4,5,7,8,10],pattern:"H–1½–H–W–H–W–W",formula:"1 · ♭2 · 3 · 4 · 5 · ♭6 · ♭7",diff:"Harmonic minor, started on degree 5",char:"Major, urgent, flamenco / Middle-Eastern",use:"The V chord's scale in minor keys; flamenco; “Misirlou”",desc:"This is the scale that lives on the V chord in a minor key: a major tonic chord (the raised 3rd is harmonic minor's leading note) framed by a flattened 2nd and 6th. Instantly recognisable."},
+ {id:"hm6",name:"Harmonic Minor Mode 6",aka:"Lydian ♯2",group:"Harmonic Minor modes",roman:"VI",kind:"Maj",degrees:["1","♯2","3","♯4","5","6","7"],intervals:[0,3,4,6,7,9,11],pattern:"1½–H–W–H–W–W–H",formula:"1 · ♯2 · 3 · ♯4 · 5 · 6 · 7",diff:"Harmonic minor, started on degree 6",char:"The brightest sound in the minor family",use:"Over major tonic chords needing maximum lift in a minor context",desc:"Lydian with a raised 2nd as well as a raised 4th — the brightest of all fourteen modes on the two families, major or minor."},
+ {id:"hm7",name:"Harmonic Minor Mode 7",aka:"Super Locrian (Altered Diminished)",group:"Harmonic Minor modes",roman:"VII",kind:"Dim",degrees:["1","♭2","♭3","♭4","♭5","♭6","𝄫7"],intervals:[0,1,3,4,6,8,9],pattern:"H–W–H–W–W–H–1½",formula:"1 · ♭2 · ♭3 · ♭4 · ♭5 · ♭6 · 𝄫7",diff:"Harmonic minor, started on degree 7",char:"Fully diminished — every degree flattened",use:"Over diminished seventh chords; dramatic turnarounds",desc:"Every degree above the tonic is flattened, the 7th doubly (𝄫7). Its notes form a fully diminished seventh arpeggio with passing tones — maximum tension, built to resolve."},
+ {id:"diminished",name:"Diminished (Whole–Half)",aka:"Octatonic scale",group:"Other",kind:"Dim",degrees:["1","2","♭3","4","♭5","♭6","6","7"],intervals:[0,2,3,5,6,8,9,11],letterSteps:[0,1,2,3,4,5,5,6],pattern:"W–H–W–H–W–H–W–H",formula:"1 · 2 · ♭3 · 4 · ♭5 · ♭6 · 6 · 7",diff:"Eight notes: whole and half steps alternating",char:"Symmetrical, tense, endlessly cycling",use:"Jazz over diminished & dominant chords; film suspense",desc:"An eight-note (octatonic) scale alternating whole and half steps. Because it is symmetrical it repeats every minor 3rd — there are only three distinct diminished scales in all of music."}
+);
+SCALES.forEach(s=>{ const m=SCALE_META[s.id]; if(m) Object.assign(s,m); });
+const KIND_WORD={Maj:"Major tonic chord",Min:"Minor tonic chord",Dim:"Diminished tonic chord",Aug:"Augmented tonic chord"};
+const MODE_ORDER=["lydian","ionian","mixolydian","dorian","aeolian","phrygian","locrian"];
+/* Modes derived from a tonic: keep the tonic's parent scale fixed and start each mode on the next degree (C major → C Ionian, D Dorian, E Phrygian …) */
+const MODE_DERIV_ORDER=["ionian","dorian","phrygian","lydian","mixolydian","aeolian","locrian"];
+const MAJOR_STEPS=[0,2,4,5,7,9,11];
+const MODE_CHAR={ionian:"Major",dorian:"Minor with natural 6",phrygian:"Minor with flat 2",lydian:"Major with sharp 4",mixolydian:"Major with flat 7",aeolian:"Natural minor",locrian:"Diminished flavor"};
+const HM_STEPS=[0,2,3,5,7,8,11];
+const HM_SHORT={ "harmonic-minor":"Harmonic Minor",hm2:"Locrian ♮6",hm3:"Ionian ♯5",hm4:"Dorian ♯4",hm5:"Phrygian Dominant",hm6:"Lydian ♯2",hm7:"Super Locrian"};
+function setRootByPc(pc){
+  state.root=ROOTS.find(r=>r.pc===pc);
+  state.scale=SCALES.find(s=>s.id==="ionian");
+}
+const HM_ORDER=["harmonic-minor","hm2","hm3","hm4","hm5","hm6","hm7"];
+const BRIGHT={lydian:98,ionian:84,mixolydian:68,dorian:52,aeolian:36,phrygian:20,locrian:6};
+
+let state={root:ROOTS[0], scale:SCALES[0], timbre:"piano", tempo:460, circle:0, chordMode:"major", chordSel:0};
+let actx=null, master=null, playbackBus=null, timers=[], playingEls=[];
+function ensureAudio(){ if(!actx){ actx=new (window.AudioContext||window.webkitAudioContext)(); master=actx.createGain(); master.gain.value=.85; master.connect(actx.destination); playbackBus=actx.createGain(); playbackBus.gain.value=1; playbackBus.connect(master);} if(actx.state==="suspended") actx.resume(); }
+function freqOf(midi){return 440*Math.pow(2,(midi-69)/12)}
+function playTone(midi, when=0, dur=0.85){
+  ensureAudio(); const t=actx.currentTime+when; const f=freqOf(midi);
+  const g=actx.createGain(); g.connect(playbackBus||master);
+  let osc, osc2=null;
+  if(state.timbre==="strings"){
+    /* Bowed string. What kept making earlier versions read as "synth organ"
+       was a perfectly steady spectrum at a perfectly steady level — an organ
+       pipe does exactly that, a bow never does. This voice builds in the
+       motion a bow actually makes:
+       · a short pitch scoop and a faint scratch of bow-hair noise as the
+         bow catches the string at the attack;
+       · brightness that follows bow pressure (the filter opens with the
+         attack, then eases back), rather than one fixed cutoff;
+       · a level that keeps breathing — two slow, uneven swells from the
+         bow arm — instead of a flat sustain;
+       · vibrato that grows in after the attack, as a player's left hand
+         starts it.
+       Notes in a run are also cut short by scheduleNotes (see there), so a
+       scale articulates as separate bow strokes instead of several steady
+       notes smearing into one continuous chord. No reverb or delay
+       anywhere — the note ends cleanly when it ends. */
+    const cutoff=Math.min(3400,Math.max(750,f*6));
+    const flt=actx.createBiquadFilter(); flt.type="lowpass"; flt.Q.value=.7;
+    flt.frequency.setValueAtTime(cutoff*.5,t);
+    flt.frequency.linearRampToValueAtTime(cutoff,t+.09);
+    flt.frequency.linearRampToValueAtTime(cutoff*.78,t+.34);
+    /* Bow-motion trim: the filter feeds this gain, whose level the two slow
+       "bow arm" LFOs keep gently rising and falling around its base value */
+    const trim=actx.createGain(); trim.gain.value=.92;
+    flt.connect(trim); trim.connect(g);
+    [[0.8,.07],[2.3,.035]].forEach(([rate,depth])=>{
+      const blfo=actx.createOscillator(); blfo.type="sine"; blfo.frequency.value=rate;
+      const bg=actx.createGain(); bg.gain.value=depth;
+      blfo.connect(bg); bg.connect(trim.gain);
+      blfo.start(t); blfo.stop(t+dur+.15);
+    });
+    osc=actx.createOscillator(); osc.type="sawtooth";
+    osc.detune.value=Math.random()*4-2;
+    osc.frequency.setValueAtTime(f*.982,t);
+    osc.frequency.exponentialRampToValueAtTime(f,t+.07);
+    osc2=actx.createOscillator(); osc2.type="sawtooth";
+    osc2.detune.value=5+(Math.random()*3-1.5);
+    osc2.frequency.setValueAtTime(f*.982,t);
+    osc2.frequency.exponentialRampToValueAtTime(f,t+.07);
+    const g2=actx.createGain(); g2.gain.value=.34;
+    osc.connect(flt); osc2.connect(g2); g2.connect(flt);
+    /* Bow-hair noise: a breath of band-passed noise under the note, louder
+       for the first instant (the catch), then just a trace while bowing.
+       It runs through the note's own envelope gain, so it stops with it. */
+    if(!playTone._noiseBuf){
+      const len=actx.sampleRate;
+      const buf=actx.createBuffer(1,len,actx.sampleRate);
+      const ch=buf.getChannelData(0);
+      for(let i=0;i<len;i++) ch[i]=Math.random()*2-1;
+      playTone._noiseBuf=buf;
+    }
+    const noise=actx.createBufferSource(); noise.buffer=playTone._noiseBuf; noise.loop=true;
+    noise.playbackRate.value=.9+Math.random()*.2;
+    const bp=actx.createBiquadFilter(); bp.type="bandpass"; bp.frequency.value=2600; bp.Q.value=.6;
+    const ng=actx.createGain();
+    ng.gain.setValueAtTime(.045,t);
+    ng.gain.exponentialRampToValueAtTime(.011,t+.13);
+    ng.gain.setValueAtTime(.011,t+Math.max(.14,dur-.12));
+    ng.gain.linearRampToValueAtTime(0,t+dur);
+    noise.connect(bp); bp.connect(ng); ng.connect(g);
+    noise.start(t); noise.stop(t+dur+.05);
+    /* Vibrato: none at the attack, growing in like a player's left hand */
+    const lfo=actx.createOscillator(); lfo.type="sine"; lfo.frequency.value=5.4;
+    const lg=actx.createGain(); lg.gain.setValueAtTime(0,t);
+    lg.gain.setValueAtTime(0,t+.22); lg.gain.linearRampToValueAtTime(f*.006,t+.55);
+    lfo.connect(lg); lg.connect(osc.frequency); lg.connect(osc2.frequency);
+    lfo.start(t); lfo.stop(t+dur+.15);
+    /* Envelope: bow catch, slight settle, breathing sustain, clean lift */
+    const rel=Math.min(.14,Math.max(.08,dur*.2));
+    g.gain.setValueAtTime(0,t);
+    g.gain.linearRampToValueAtTime(.3,t+.08);
+    g.gain.linearRampToValueAtTime(.27,t+.22);
+    g.gain.setValueAtTime(.27,t+Math.max(.24,dur-rel));
+    g.gain.linearRampToValueAtTime(0,t+dur);
+    osc.start(t); osc.stop(t+dur+.05); osc2.start(t); osc2.stop(t+dur+.05);
+  } else if(state.timbre==="sine"){
+    osc=actx.createOscillator(); osc.type="sine"; osc.frequency.value=f; osc.connect(g);
+    g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(.5,t+.02); g.gain.exponentialRampToValueAtTime(.001,t+dur);
+    osc.start(t); osc.stop(t+dur+.05);
+  } else { // piano-ish
+    osc=actx.createOscillator(); osc.type="triangle"; osc.frequency.value=f;
+    osc2=actx.createOscillator(); osc2.type="sine"; osc2.frequency.value=f*2;
+    const g2=actx.createGain(); g2.gain.value=.28; osc2.connect(g2); g2.connect(g); osc.connect(g);
+    g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(.55,t+.012); g.gain.exponentialRampToValueAtTime(.001,t+dur);
+    osc.start(t); osc.stop(t+dur+.05); osc2.start(t); osc2.stop(t+dur+.05);
+  }
+}
+function stopAll(){ timers.forEach(clearTimeout); timers=[]; playingEls.forEach(e=>e.classList.remove("playing","now")); playingEls=[]; document.querySelectorAll(".prog-chord.now").forEach(e=>e.classList.remove("now")); if(actx&&playbackBus){ const oldBus=playbackBus; const now=actx.currentTime; try{ oldBus.gain.cancelScheduledValues(now); oldBus.gain.setValueAtTime(oldBus.gain.value,now); oldBus.gain.linearRampToValueAtTime(0,now+0.04); setTimeout(()=>{ try{oldBus.disconnect();}catch(e){} },90); }catch(e){ try{oldBus.disconnect();}catch(_){} } playbackBus=actx.createGain(); playbackBus.gain.value=1; playbackBus.connect(master); } }
+function scheduleNotes(midis, stepMs, durSec=0.9, highlight=true){
+  stopAll(); ensureAudio();
+  /* Strings: a bowed note held for the full durSec would still be at full
+     sustain when the next note starts, so a run smears into a steady
+     multi-note wash — a big part of the "organ" feel. Cut each string note
+     to just past the next attack instead, like separate bow strokes. */
+  const effDur = state.timbre==="strings" ? Math.min(durSec, stepMs/1000+0.28) : durSec;
+  midis.forEach((m,i)=>{
+    playTone(m, i*stepMs/1000, effDur);
+    if(highlight){ const t=setTimeout(()=>{ highlightMidi(m); }, i*stepMs); timers.push(t); }
+  });
+  if(highlight) timers.push(setTimeout(()=>{playingEls.forEach(e=>e.classList.remove("playing")); playingEls=[];}, midis.length*stepMs+200));
+}
+/* Play a mode-table row in place: the mode's own scale, starting on the
+   mode's own tonic (e.g. D Dorian = D E F G A B C D when the parent is
+   C major). Deliberately does NOT touch state.root or state.scale, does
+   not re-render anything, and does not scroll — the explorer above keeps
+   exactly the tonic and scale the user already had. */
+function playModeRow(tr, s, modePc){
+  const base=60+modePc;
+  const midis=s.intervals.map(iv=>base+iv).concat([base+12]);
+  scheduleNotes(midis, state.tempo, Math.max(.7,state.tempo/1000+.45), false);
+  document.querySelectorAll("tr.mode-playing").forEach(e=>e.classList.remove("mode-playing"));
+  tr.classList.add("mode-playing");
+  timers.push(setTimeout(()=>tr.classList.remove("mode-playing"), midis.length*state.tempo+250));
+}
+function highlightMidi(midi){
+  playingEls.forEach(e=>e.classList.remove("playing")); playingEls=[];
+  document.querySelectorAll('[data-midi="'+midi+'"]').forEach(e=>{e.classList.add("playing"); playingEls.push(e);});
+}
+function scaleMidis(){ const base=60+state.root.pc; return state.scale.intervals.map(iv=>base+iv).concat([base+12]); }
+function scaleNames(){ const names=spellScale(state.root, state.scale.intervals, state.scale.letterSteps); return names.concat([names[0]]); }
+function parentMajor(){
+  const hmIdx=HM_ORDER.indexOf(state.scale.id==="harmonic-minor-alias"?"harmonic-minor":state.scale.id);
+  if(hmIdx>=0){ const steps=[0,2,3,5,7,8,11][hmIdx]; const ppc=(state.root.pc-steps+12)%12; return dualRoot(ROOTS.find(r=>r.pc===ppc))+" harmonic minor"; }
+  const modeIdx=["ionian","dorian","phrygian","lydian","mixolydian","aeolian","locrian"].indexOf(state.scale.id==="natural-minor"?"aeolian":state.scale.id);
+  if(modeIdx===-1) return state.scale.id.includes("minor")||state.scale.id==="minor-pent"||state.scale.id==="blues" ? "— (minor family)" : "—";
+  const steps=[0,2,4,5,7,9,11][modeIdx];
+  const ppc=(state.root.pc-steps+12)%12; const pr=ROOTS.find(r=>r.pc===ppc);
+  return dualRoot(pr)+" major";
+}
+
+/* Render controls — tonic is a dropdown beside Scale / mode in the playing
+   card. Choosing a tonic always resets the scale to Ionian, as before. */
+const tonicSelect=document.getElementById("tonicSelect");
+if(tonicSelect){
+  ROOTS.forEach(r=>{ const o=document.createElement("option"); o.value=String(r.pc); o.textContent=dualRoot(r); if(ENHARM_ALT[r.pc]) o.title="Enharmonic: "+r.label+" is the same pitch as "+ENHARM_ALT[r.pc]; tonicSelect.appendChild(o); });
+  tonicSelect.value=String(state.root.pc);
+  tonicSelect.onchange=()=>{ const r=ROOTS.find(x=>x.pc===+tonicSelect.value); if(r){ state.root=r; state.scale=SCALES.find(s=>s.id==="ionian"); renderAll(); } };
+}
+function syncTonicSelect(){ if(tonicSelect) tonicSelect.value=String(state.root.pc); }
+const scaleSelect=document.getElementById("scaleSelect");
+if(scaleSelect){
+  const groupOrder=[]; const byGroup={};
+  SCALES.forEach(s=>{ if(!byGroup[s.group]){ byGroup[s.group]=[]; groupOrder.push(s.group); } byGroup[s.group].push(s); });
+  groupOrder.forEach(g=>{
+    const og=document.createElement("optgroup"); og.label=g;
+    byGroup[g].forEach(s=>{ const o=document.createElement("option"); o.value=s.id; o.textContent=s.id==="aeolian"?"Aeolian (Natural Minor)":s.name; og.appendChild(o); });
+    scaleSelect.appendChild(og);
+  });
+  scaleSelect.value=state.scale.id;
+  scaleSelect.onchange=()=>{ const s=SCALES.find(x=>x.id===scaleSelect.value); if(s){ state.scale=s; renderScale(); } };
+}
+function syncScaleButtons(){ if(scaleSelect) scaleSelect.value=state.scale.id; syncTonicSelect(); }
+/* No timbre or speed choice: playback is always piano at a moderate tempo
+   (state.timbre stays "piano", state.tempo stays 460). */
+
+function renderScale(){
+  const s=state.scale, names=scaleNames(), midis=scaleMidis();
+  document.getElementById("nowName").textContent=dualRoot(state.root)+" "+s.name+(s.id==="ionian"?" (Major)":s.id==="aeolian"?" (Natural Minor)":s.id==="natural-minor"?" (Aeolian)":"");
+  syncScaleButtons();
+  const pt=document.getElementById("pianoTitle"); if(pt) pt.textContent=document.getElementById("nowName").textContent;
+  const altEl=document.getElementById("rootAltNote");
+  if(altEl){ altEl.innerHTML = ENHARM_ALT[state.root.pc] ? "Enharmonic root: <b>"+ENHARM_DUAL[state.root.pc]+"</b> are two names for the same pitch — the notes below are spelled from <b>"+state.root.label+"</b>." : ""; }
+  document.getElementById("nowKicker").textContent=s.group+" · "+s.aka;
+  document.getElementById("nowDesc").textContent=s.desc;
+  document.getElementById("kvKind").textContent=(s.roman?s.roman+" · ":"")+(s.kind?KIND_WORD[s.kind]:"—");
+  document.getElementById("kvPattern").textContent=s.pattern;
+  document.getElementById("kvFormula").textContent=s.formula;
+  document.getElementById("kvChar").textContent=s.char;
+  document.getElementById("kvParent").textContent=parentMajor();
+  document.getElementById("kvUse").textContent=s.use;
+  document.getElementById("formulaBox").textContent=names.join("  →  ")+"   ·   semitones from tonic: "+s.intervals.join(", ")+", 12"+(ENHARM_ALT[state.root.pc]?"   ·   tonic also called "+ENHARM_ALT[state.root.pc]+" (same pitch, enharmonic)":"");
+  const modeRootEl=document.getElementById("modeRootLabel"); if(modeRootEl){ modeRootEl.textContent=dualRoot(state.root); }
+  renderPiano(names,midis);
+  renderStaff(names,midis);
+  renderModeTable(); renderHMTable(); renderNatMin();
+}
+function renderNatMin(){
+  const el=document.getElementById("natMinStrip"); if(!el) return;
+  const ae=SCALES.find(x=>x.id==="aeolian"); const names=spellScale(state.root,ae.intervals);
+  el.innerHTML="";
+  names.concat([names[0]]).forEach((n,i)=>{
+    const sp=document.createElement("span"); sp.className="prog-chord";
+    sp.textContent=n+" · "+(i===names.length?"8":ae.degrees[i]);
+    el.appendChild(sp);
+  });
+}
+function renderHMTable(){
+  const tb=document.getElementById("hmTable"); if(!tb) return; tb.innerHTML="";
+  const parentNames=spellScale(state.root,HM_STEPS);
+  HM_ORDER.forEach((id,degIdx)=>{
+    const s=SCALES.find(x=>x.id===id);
+    const rotated=parentNames.slice(degIdx).concat(parentNames.slice(0,degIdx));
+    const modeTonic=parentNames[degIdx];
+    const modePc=(state.root.pc+HM_STEPS[degIdx])%12;
+    const tr=document.createElement("tr"); tr.className="clickable";
+    tr.innerHTML="<td><b>"+modeTonic+" "+HM_SHORT[id]+"</b><br><span class='small'>"+rotated.join(" · ")+"</span></td><td><span class='kind-badge'><span class='kb-top'>"+s.roman+" ·</span><span class='kb-bot'>"+s.kind+"</span></span></td><td style='font-family:JetBrains Mono,monospace;font-size:.82rem'>"+s.degrees.join(" · ")+" · 8</td><td style='font-family:JetBrains Mono,monospace;font-size:.82rem'>"+s.pattern+"</td><td>"+s.char+"</td>";
+    tr.onclick=()=>playModeRow(tr, s, modePc);
+    tb.appendChild(tr);
+  });
+}
+function renderPiano(names,midis){
+  const piano=document.getElementById("piano"); piano.innerHTML="";
+  const base=60+state.root.pc; const inScale=new Set(state.scale.intervals);
+  const whites=[]; for(let m=base;m<=base+12;m++){ if([0,2,4,5,7,9,11].includes((m%12+12)%12)) whites.push(m); }
+  const wW=100/whites.length;
+  // white keys first
+  whites.forEach((m,i)=>{
+    const pc=(m-base+12)%12===0&&m!==base?12:(m-base); const iv=m-base;
+    const d=document.createElement("div"); d.className="piano-key key-white"+(inScale.has(iv)||iv===12?" in-scale":"")+((iv===0||iv===12)?" root":"");
+    d.style.left=(i*wW)+"%"; d.style.width=wW+"%"; d.dataset.midi=m;
+    const nameIdx = state.scale.intervals.indexOf(iv===12?0:iv);
+    const nm = (iv===12)? names[names.length-1] : (nameIdx>=0? names[nameIdx] : (state.root.pref==="flat"?FLAT[m%12]:SHARP[m%12]));
+    d.innerHTML='<span class="key-label">'+nm+'</span>';
+    d.onclick=()=>{stopAll(); playTone(m,0,.95); highlightMidi(m);};
+    piano.appendChild(d);
+  });
+  for(let m=base;m<=base+12;m++){
+    const pc=m%12; if(![1,3,6,8,10].includes(pc)) continue;
+    const before=whites.filter(w=>w<m).length; const leftPct=before*wW - wW*0.32;
+    const iv=m-base; const d=document.createElement("div");
+    d.className="piano-key key-black"+(inScale.has(iv)?" in-scale":"")+((iv===0||iv===12)?" root":"");
+    d.style.left=leftPct+"%"; d.style.width=(wW*0.64)+"%"; d.dataset.midi=m;
+    const nameIdx=state.scale.intervals.indexOf(iv);
+    const nm=(nameIdx>=0?names[nameIdx]:(state.root.pref==="flat"?FLAT[pc]:SHARP[pc]));
+    d.innerHTML='<span class="key-label">'+nm+'</span>';
+    d.onclick=(e)=>{e.stopPropagation(); stopAll(); playTone(m,0,.95); highlightMidi(m);};
+    piano.appendChild(d);
+  }
+}
+/* Standard key signature + accidentals beside the notes.
+   The staff keeps the standard key signature of the scale's home key, laid
+   out in the usual order (sharps F C G D A E B, flats B E A D G C F), each on
+   its standard treble-clef line or space:
+   · major modes take their parent major key's signature (D Dorian → C
+     major's empty signature), so no note needs an accidental;
+   · the minor family (harmonic & melodic minor and the harmonic-minor
+     modes, minor pentatonic, blues) takes the natural-minor signature of
+     its (parent) tonic — harmonic minor's raised 7th, melodic minor's
+     raised 6th & 7th and the blues ♭5 then appear as accidentals beside
+     the note heads, exactly as in printed music;
+   · major pentatonic takes its tonic's major signature;
+   · whole-tone and diminished have no home key: empty signature, and
+     every altered note carries its accidental beside the head. */
+const SHARP_ORDER=["F","C","G","D","A","E","B"];
+const FLAT_ORDER=["B","E","A","D","G","C","F"];
+const SHARP_POS={F:38,C:35,G:39,D:36,A:33,E:37,B:34};
+const FLAT_POS={B:34,E:37,A:33,D:36,G:32,C:35,F:31};
+/* Fifths count of a spelled major key: each letter's natural key sits at a
+   fixed place on the circle (F=-1, C=0, G=1, D=2, A=3, E=4, B=5) and every
+   sharp/flat in the tonic's own name moves it seven steps further round.
+   Theoretical keys beyond seven sharps/flats (e.g. F♭ major, the relative
+   major of D♭ minor) are capped at the seven-accidental signature, which
+   already alters every letter on that side. */
+const LETTER_FIFTHS={F:-1,C:0,G:1,D:2,A:3,E:4,B:5};
+function majorFifths(letterIdx, pc){
+  const letter=LETTERS[((letterIdx%7)+7)%7];
+  let diff=(pc-LETTER_PC[letter]+12)%12; if(diff>6) diff-=12;
+  return Math.max(-7, Math.min(7, LETTER_FIFTHS[letter]+7*diff));
+}
+function standardSignature(){
+  const s=state.scale;
+  const startIdx=LETTERS.indexOf(state.root.label.replace("♯","").replace("♭",""));
+  let f=null; // fifths count of the home key signature; null = no home key
+  const modeIdx=MODE_DERIV_ORDER.indexOf(s.id);
+  const hmIdx=HM_ORDER.indexOf(s.id==="harmonic-minor-alias"?"harmonic-minor":s.id);
+  if(modeIdx>=0){
+    f=majorFifths(startIdx-modeIdx,(state.root.pc-MAJOR_STEPS[modeIdx]+12)%12);
+  } else if(hmIdx>=0){
+    // Parent harmonic-minor tonic → its relative major (a minor 3rd up)
+    const pLetter=startIdx-hmIdx, pPc=(state.root.pc-HM_STEPS[hmIdx]+12)%12;
+    f=majorFifths(pLetter+2,(pPc+3)%12);
+  } else if(s.id==="natural-minor"||s.id==="melodic-minor"||s.id==="minor-pent"||s.id==="blues"){
+    f=majorFifths(startIdx+2,(state.root.pc+3)%12);
+  } else if(s.id==="major-pent"){
+    f=majorFifths(startIdx,state.root.pc);
+  }
+  const map={}, items=[];
+  if(f!==null&&f>0) SHARP_ORDER.slice(0,f).forEach(L=>{ map[L]=1; items.push({symbol:"♯",letter:L,step:SHARP_POS[L]}); });
+  if(f!==null&&f<0) FLAT_ORDER.slice(0,-f).forEach(L=>{ map[L]=-1; items.push({symbol:"♭",letter:L,step:FLAT_POS[L]}); });
+  return {map:map, items:items};
+}
+const ACC_VALUE={"":0,"♯":1,"♭":-1,"𝄪":2,"𝄫":-2};
+const ACC_SYMBOL={"2":"𝄪","1":"♯","0":"♮","-1":"♭","-2":"𝄫"};
+/* The accidental to print beside a note head: the symbol that turns the key
+   signature's version of that letter into the note actually spelled, or ""
+   when the signature already covers the note. */
+function noteAccidental(nm, sigMap){
+  const acc=ACC_VALUE[nm.slice(1)]||0;
+  const implied=sigMap[nm.charAt(0)]||0;
+  return acc!==implied ? ACC_SYMBOL[acc] : "";
+}
+function renderStaff(names,midis){
+  const staff=document.getElementById("staff"); if(!staff) return; staff.innerHTML="";
+  const s=state.scale;
+  // Diatonic position of each note: absolute step = octave*7 + letter index (C=0 … B=6).
+  // Treble staff lines are steps 30 (E4) … 38 (F5); each step is half a line-gap.
+  const startLetter=state.root.label.replace("♯","").replace("♭","");
+  const startIdx=LETTERS.indexOf(startLetter);
+  const base=60+state.root.pc;
+  const o0=Math.round((base-LETTER_PC[startLetter])/12)-1;
+  const startAbs=o0*7+startIdx;
+  const TOPLINE=38, YTOP=36, HALF=8;
+  const yOf=abs=>YTOP+(TOPLINE-abs)*HALF;
+  [38,36,34,32,30].forEach(ls=>{ const d=document.createElement("div"); d.className="staff-line"; d.style.top=yOf(ls)+"px"; staff.appendChild(d); });
+  const clef=document.createElement("div"); clef.className="clef"; clef.textContent="𝄞"; clef.setAttribute("aria-hidden","true"); staff.appendChild(clef);
+  // Standard key signature for the scale's home key, after the clef.
+  // Anchor it in pixels just right of the clef: the clef is a fixed-size
+  // glyph, so percentage offsets drifted far away from it on the wide
+  // desktop staff (on the narrow phone staff they happened to sit right).
+  const sigObj=standardSignature();
+  const sig=sigObj.items;
+  const staffW=staff.clientWidth||920;
+  const phone=window.innerWidth<=640;
+  const keyX0=phone?40:50, keyStep=phone?14:17;
+  sig.forEach((it,i)=>{
+    const k=document.createElement("span"); k.className="skey"; k.setAttribute("aria-hidden","true");
+    k.style.left=(keyX0+i*keyStep)+"px"; k.style.top=yOf(it.step)+"px"; k.textContent=it.symbol;
+    staff.appendChild(k);
+  });
+  staff.setAttribute("aria-label","Musical staff showing the notes of the selected scale, one octave"+(sig.length?(", key signature: "+sig.map(it=>it.letter+it.symbol).join(", ")):", no sharps or flats in the key signature"));
+  const n=names.length;
+  const x0=sig.length? ((keyX0+sig.length*keyStep+16)/staffW*100) : 13;
+  names.forEach((nm,i)=>{
+    const isLast=i===n-1;
+    const stepOff=isLast?7:(s.letterSteps?s.letterSteps[i]:i);
+    const abs=startAbs+stepOff;
+    const xPct=x0+(n>1? i*((96-x0)/(n-1)) : (96-x0)/2);
+    const y=yOf(abs);
+    // Ledger lines: every line-position step between the staff and the note
+    for(let ls=28; ls>=abs; ls-=2){ const l=document.createElement("div"); l.className="sledger"; l.style.left=xPct+"%"; l.style.top=yOf(ls)+"px"; staff.appendChild(l); }
+    for(let ls=40; ls<=abs; ls+=2){ const l=document.createElement("div"); l.className="sledger"; l.style.left=xPct+"%"; l.style.top=yOf(ls)+"px"; staff.appendChild(l); }
+    // Accidental beside the note head for any note the key signature does not already cover
+    const accSym=noteAccidental(nm, sigObj.map);
+    if(accSym){
+      const a=document.createElement("span"); a.className="sacc"; a.setAttribute("aria-hidden","true");
+      a.style.left="calc("+xPct+"% - 19px)"; a.style.top=y+"px"; a.textContent=accSym;
+      staff.appendChild(a);
+    }
+    const b=document.createElement("button"); b.type="button"; b.className="snote"+((i===0||isLast)?" root":"");
+    b.style.left=xPct+"%"; b.style.top=y+"px"; b.dataset.midi=midis[i];
+    b.setAttribute("aria-label","Play "+nm+(isLast?" (octave)":""));
+    const head=document.createElement("span"); head.className="shead"; b.appendChild(head);
+    const stem=document.createElement("span"); stem.className="sstem";
+    if(abs<34){ stem.style.left="calc(50% + 7px)"; stem.style.bottom="50%"; } else { stem.style.left="calc(50% - 9px)"; stem.style.top="50%"; }
+    b.appendChild(stem);
+    b.onclick=()=>{stopAll(); playTone(midis[i],0,.95); highlightMidi(midis[i]);};
+    staff.appendChild(b);
+  });
+}
+function renderModeTable(){
+  const tb=document.getElementById("modeTable"); tb.innerHTML="";
+  const parentNames=spellScale(state.root,MAJOR_STEPS);
+  const parentLabel=dualRoot(state.root);
+  MODE_DERIV_ORDER.forEach((id,degIdx)=>{
+    const s=SCALES.find(x=>x.id===id);
+    const rotated=parentNames.slice(degIdx).concat(parentNames.slice(0,degIdx));
+    const modeTonic=parentNames[degIdx];
+    const modePc=(state.root.pc+MAJOR_STEPS[degIdx])%12;
+    const tr=document.createElement("tr"); tr.className="clickable";
+    tr.innerHTML="<td><b>"+modeTonic+" "+s.name+"</b></td><td>Degree "+(degIdx+1)+" of "+parentLabel+" major</td><td style='letter-spacing:.14em;font-weight:600'>"+rotated.join(" ")+"</td><td>"+MODE_CHAR[id]+"</td><td style='min-width:90px'><div class='bright' style='width:"+BRIGHT[id]+"%'></div></td>";
+    tr.onclick=()=>playModeRow(tr, s, modePc);
+    tb.appendChild(tr);
+  });
+}
+function playScaleAsc(){ scheduleNotes(scaleMidis(), state.tempo, Math.max(.7,state.tempo/1000+.45)); }
+document.getElementById("playAsc").onclick=playScaleAsc;
+document.getElementById("playDesc").onclick=()=>{ scheduleNotes([...scaleMidis()].reverse(), state.tempo, Math.max(.7,state.tempo/1000+.45)); };
+document.getElementById("playBoth").onclick=()=>{ const m=scaleMidis(); scheduleNotes(m.concat([...m].reverse().slice(1)), state.tempo, Math.max(.7,state.tempo/1000+.45)); };
+document.getElementById("stopBtn").onclick=stopAll;
+/* Piano pop-up — opened by the Piano button beside the staff */
+const pianoOverlay=document.getElementById("pianoOverlay");
+const openPianoBtn=document.getElementById("openPianoBtn");
+const closePianoBtn=document.getElementById("closePianoBtn");
+function openPiano(){ if(!pianoOverlay) return; pianoOverlay.hidden=false; document.body.style.overflow="hidden"; if(closePianoBtn) closePianoBtn.focus(); }
+function closePiano(){ if(!pianoOverlay) return; pianoOverlay.hidden=true; document.body.style.overflow=""; if(openPianoBtn) openPianoBtn.focus(); }
+if(openPianoBtn) openPianoBtn.onclick=openPiano;
+if(closePianoBtn) closePianoBtn.onclick=closePiano;
+if(pianoOverlay){
+  pianoOverlay.addEventListener("click",e=>{ if(e.target.hasAttribute("data-close-piano")) closePiano(); });
+  document.addEventListener("keydown",e=>{ if(e.key==="Escape" && !pianoOverlay.hidden) closePiano(); });
+}
+/* About pop-up — intro and stats, opened by the About button in the header */
+const aboutOverlay=document.getElementById("aboutOverlay");
+const openAboutBtn=document.getElementById("openAboutBtn");
+const closeAboutBtn=document.getElementById("closeAboutBtn");
+function openAbout(){ if(!aboutOverlay) return; aboutOverlay.hidden=false; document.body.style.overflow="hidden"; if(closeAboutBtn) closeAboutBtn.focus(); }
+function closeAbout(){ if(!aboutOverlay) return; aboutOverlay.hidden=true; document.body.style.overflow=""; if(openAboutBtn) openAboutBtn.focus(); }
+if(openAboutBtn) openAboutBtn.onclick=openAbout;
+if(closeAboutBtn) closeAboutBtn.onclick=closeAbout;
+if(aboutOverlay){
+  aboutOverlay.addEventListener("click",e=>{ if(e.target.hasAttribute("data-close-about")) closeAbout(); });
+  document.addEventListener("keydown",e=>{ if(e.key==="Escape" && !aboutOverlay.hidden) closeAbout(); });
+}
+
+/* Circle of fifths */
+const CIRCLE=[ // clockwise from C
+ {maj:0,sig:"No sharps or flats",acc:""},
+ {maj:7,sig:"1 sharp",acc:"F♯"},
+ {maj:2,sig:"2 sharps",acc:"F♯, C♯"},
+ {maj:9,sig:"3 sharps",acc:"F♯, C♯, G♯"},
+ {maj:4,sig:"4 sharps",acc:"F♯, C♯, G♯, D♯"},
+ {maj:11,sig:"5 sharps (B) / 7 flats (C♭)",acc:"B major: F♯, C♯, G♯, D♯, A♯ · C♭ major: 7 flats",enharm:"Enharmonic pair: B major (5♯) = C♭ major (7♭). Its relative minor is G♯ minor = A♭ minor."},
+ {maj:6,sig:"6 sharps / 6 flats",acc:"F♯ major: F♯, C♯, G♯, D♯, A♯, E♯ · G♭ major: B♭, E♭, A♭, D♭, G♭, C♭",enharm:"Enharmonic pair: F♯ major (6♯) = G♭ major (6♭). Its relative minor is D♯ minor = E♭ minor."},
+ {maj:1,sig:"7 sharps (C♯) / 5 flats (D♭)",acc:"C♯ major: 7 sharps · D♭ major: B♭, E♭, A♭, D♭, G♭",enharm:"Enharmonic pair: C♯ major (7♯) = D♭ major (5♭). Its relative minor is A♯ minor = B♭ minor."},
+ {maj:8,sig:"4 flats",acc:"B♭, E♭, A♭, D♭"},
+ {maj:3,sig:"3 flats",acc:"B♭, E♭, A♭"},
+ {maj:10,sig:"2 flats",acc:"B♭, E♭"},
+ {maj:5,sig:"1 flat",acc:"B♭"},
+];
+function rootByPc(pc){return ROOTS.find(r=>r.pc===pc)}
+/* Enharmonic key pairs at the bottom of the wheel, as on the reference: majors B / C♭, F♯ / G♭, C♯ / D♭ and their relative minors */
+const KEY_DUAL={1:"C♯ / D♭",6:"F♯ / G♭",11:"B / C♭"};
+const MINOR_DUAL_BY_MAJOR={11:"G♯m / A♭m",6:"D♯m / E♭m",1:"A♯m / B♭m"};
+const MINOR_DUAL_NAME={11:"G♯ minor / A♭ minor",6:"D♯ minor / E♭ minor",1:"A♯ minor / B♭ minor"};
+function keyDualLabel(pc){ return KEY_DUAL[pc]||rootByPc(pc).label; }
+function minorLabelFor(majPc){ if(MINOR_DUAL_BY_MAJOR[majPc]) return MINOR_DUAL_BY_MAJOR[majPc]; const mpc=(majPc+9)%12; if(mpc===1) return "C♯m"; return rootByPc(mpc).label+"m"; }
+function minorName(majPc){ if(MINOR_DUAL_NAME[majPc]) return MINOR_DUAL_NAME[majPc]; const mpc=(majPc+9)%12; if(mpc===1) return "C♯ minor"; return rootByPc(mpc).label+" minor"; }
+function selectCircleKey(i){
+  state.circle=i;
+  state.root=rootByPc(CIRCLE[state.circle].maj);
+  state.scale=SCALES.find(s=>s.id==="ionian");
+  renderAll();
+}
+function renderCircle(){
+  document.querySelectorAll(".wheel-btn").forEach(b=>b.classList.toggle("active",+b.dataset.i===state.circle));
+  const chips=document.getElementById("circleChips");
+  if(chips){
+    chips.innerHTML="";
+    CIRCLE.forEach((c,i)=>{
+      const majLabel=keyDualLabel(c.maj);
+      const minLabel=minorLabelFor(c.maj);
+      const b=document.createElement("button"); b.className="pill"+(state.circle===i?" active":"");
+      b.textContent=majLabel+" · "+minLabel;
+      b.setAttribute("aria-label","Select "+majLabel+" major, relative minor "+minLabel);
+      b.onclick=()=>selectCircleKey(i);
+      chips.appendChild(b);
+    });
+  }
+  renderCircleInfo();
+}
+function renderCircleInfo(){
+  const c=CIRCLE[state.circle]; const r=rootByPc(c.maj);
+  document.getElementById("circleName").textContent=keyDualLabel(c.maj)+" major";
+  document.getElementById("cfSig").textContent=c.sig+(c.acc?" — "+c.acc:"");
+  document.getElementById("cfRel").textContent=minorName(c.maj);
+  document.getElementById("cfDom").textContent=keyDualLabel((c.maj+7)%12)+" major";
+  document.getElementById("cfSub").textContent=keyDualLabel((c.maj+5)%12)+" major";
+  document.getElementById("circleDesc").textContent = c.maj===0 ? "No sharps or flats. Its relative minor is A minor — the only minor key with no sharps or flats either."
+    : "Key signature: "+c.sig+(c.acc?" ("+c.acc+")":"")+". Its relative minor, "+minorName(c.maj)+", uses exactly the same notes — only the home note changes, just like Aeolian mode. Its neighbours on the circle, "+keyDualLabel((c.maj+5)%12)+" and "+keyDualLabel((c.maj+7)%12)+", are its IV and V chords.";
+  const scaleNamesC=spellScale(r,[0,2,4,5,7,9,11]);
+  document.getElementById("cfTriad").textContent=scaleNamesC[0]+" – "+scaleNamesC[2]+" – "+scaleNamesC[4];
+  document.getElementById("cfEnharm").textContent=c.enharm?("· "+c.enharm):"";
+  const cs=document.getElementById("cfScale"); cs.innerHTML="";
+  scaleNamesC.concat([scaleNamesC[0]]).forEach((n,i)=>{ const sp=document.createElement("span"); sp.className="prog-chord"; sp.textContent=n+" · "+(i===7?"8":i+1); cs.appendChild(sp); });
+  document.getElementById("cfChords").textContent=MAJOR_TRIADS.map(t=>t.roman+" "+scaleNamesC[t.deg]+(t.q==="min"?" minor":t.q==="dim"?" diminished":" major")).join("  ·  ");
+}
+document.querySelectorAll(".wheel-btn").forEach(b=>b.addEventListener("click",()=>selectCircleKey(+b.dataset.i)));
+document.getElementById("useCircleKey").onclick=()=>{ const c=CIRCLE[state.circle]; state.root=rootByPc(c.maj); state.scale=SCALES.find(s=>s.id==="ionian"); renderAll(); document.getElementById("explorer").scrollIntoView({behavior:"smooth"}); };
+document.getElementById("playCircleTriad").onclick=()=>{ const c=CIRCLE[state.circle]; const base=60+c.maj; stopAll(); [0,4,7].forEach(iv=>playTone(base+iv,0,1.3)); [0,4,7,12].forEach((iv,i)=>{ const t=setTimeout(()=>playTone(base+iv,0,.8),1500+i*260); timers.push(t); }); };
+document.getElementById("playCircleScale").onclick=()=>{ const c=CIRCLE[state.circle]; const base=60+c.maj; scheduleNotes([0,2,4,5,7,9,11,12].map(iv=>base+iv), state.tempo, .9); };
+
+/* Chords */
+const MAJOR_TRIADS=[{roman:"I",deg:0,q:"maj"},{roman:"ii",deg:1,q:"min"},{roman:"iii",deg:2,q:"min"},{roman:"IV",deg:3,q:"maj"},{roman:"V",deg:4,q:"maj"},{roman:"vi",deg:5,q:"min"},{roman:"vii°",deg:6,q:"dim"}];
+const MINOR_TRIADS=[{roman:"i",deg:0,q:"min"},{roman:"ii°",deg:1,q:"dim"},{roman:"III",deg:2,q:"maj"},{roman:"iv",deg:3,q:"min"},{roman:"V*",deg:4,q:"maj"},{roman:"VI",deg:5,q:"maj"},{roman:"VII",deg:6,q:"maj"}];
+const QNAME={maj:"major",min:"minor",dim:"diminished"};
+const QINT={maj:[0,4,7],min:[0,3,7],dim:[0,3,6]};
+function chordRootMidi(keyPc, scaleIntervals, deg){ return 60+keyPc+scaleIntervals[deg]; }
+function playChord(rootMidi,q){
+  stopAll(); ensureAudio(); const ints=QINT[q];
+  ints.forEach(iv=>playTone(rootMidi+iv,0,1.15));
+  timers.push(setTimeout(()=>{ ints.forEach(iv=>playTone(rootMidi+iv,0,.7)); },620));
+  // note: second pass is the arpeggio — schedule properly below overrides timing via direct calls in click handler instead
+}
+function playChordSeq(rootMidi,q){
+  stopAll(); ensureAudio(); const ints=QINT[q];
+  ints.forEach(iv=>playTone(rootMidi+iv,0,1.0));
+  ints.forEach((iv,i)=>{ const t=setTimeout(()=>playTone(rootMidi+iv,0,state.timbre==="strings"?.45:.75), 650+i*210); timers.push(t); });
+}
+function renderChords(){
+  const isMaj=state.chordMode==="major";
+  const scaleInts=isMaj?[0,2,4,5,7,9,11]:[0,2,3,5,7,8,10];
+  const triads=isMaj?MAJOR_TRIADS:MINOR_TRIADS;
+  const keyRoot=state.root;
+  document.getElementById("chordKeyName").textContent=dualRoot(keyRoot)+(isMaj?" major":" natural minor");
+  document.getElementById("progKeyLabel").textContent=dualRoot(keyRoot);
+  const names=spellScale(keyRoot, scaleInts);
+  const g=document.getElementById("chordGrid"); g.innerHTML="";
+  triads.forEach(t=>{
+    const rootMidi=chordRootMidi(keyRoot.pc, scaleInts, t.deg);
+    const chordName=names[t.deg]+(t.q==="min"?" minor":t.q==="dim"?" diminished":" major");
+    const noteNames=QINT[t.q].map(iv=>{ const pc=(rootMidi+iv)%12; return keyRoot.pref==="flat"?FLAT[pc]:SHARP[pc]; });
+    const b=document.createElement("button"); b.className="chord-card";
+    b.innerHTML='<span class="roman">'+t.roman+'</span><b>'+chordName+'</b><span>'+noteNames.join(" · ")+' — tap to hear</span>';
+    b.onclick=()=>{ document.querySelectorAll(".chord-card").forEach(x=>x.classList.remove("active")); b.classList.add("active"); playChordSeq(rootMidi,t.q); };
+    g.appendChild(b);
+  });
+  renderProgs();
+}
+document.querySelectorAll("#chordModeSeg button").forEach(b=>b.onclick=()=>{state.chordMode=b.dataset.cm; document.querySelectorAll("#chordModeSeg button").forEach(x=>x.classList.toggle("active",x===b)); renderChords();});
+
+const PROGS=[
+ {name:"Common Progression: I – IV – V",desc:"The common progression from the reference card — the three major chords of the key, and the backbone of folk, blues, country and rock. In C: C–F–G.",mode:"major",seq:[{i:0,q:"maj",r:"I"},{i:5,q:"maj",r:"IV"},{i:7,q:"maj",r:"V"},{i:0,q:"maj",r:"I"}]},
+ {name:"I – V – vi – IV",desc:"The “pop progression” — hundreds of hits, from “Let It Be” verses to “No Woman No Cry”.",mode:"major",seq:[{i:0,q:"maj",r:"I"},{i:7,q:"maj",r:"V"},{i:9,q:"min",r:"vi"},{i:5,q:"maj",r:"IV"}]},
+ {name:"I – IV – V – IV",desc:"Classic rock & folk engine. In G this is G–C–D–C — try it against any fiddle tune in G.",mode:"major",seq:[{i:0,q:"maj",r:"I"},{i:5,q:"maj",r:"IV"},{i:7,q:"maj",r:"V"},{i:5,q:"maj",r:"IV"}]},
+ {name:"ii – V – I",desc:"The jazz turnaround. V’s tension resolves home to I; add 7ths (ii⁷–V⁷–Imaj⁷) and you’re in jazz harmony.",mode:"major",seq:[{i:2,q:"min",r:"ii"},{i:7,q:"maj",r:"V"},{i:0,q:"maj",r:"I"},{i:0,q:"maj",r:"I"}]},
+ {name:"I – vi – IV – V",desc:"The ’50s / doo-wop progression — “Stand By Me”, “Earth Angel”.",mode:"major",seq:[{i:0,q:"maj",r:"I"},{i:9,q:"min",r:"vi"},{i:5,q:"maj",r:"IV"},{i:7,q:"maj",r:"V"}]},
+ {name:"vi – IV – I – V",desc:"The pop progression starting on vi — the reflective rotation heard in “Someone Like You”.",mode:"major",seq:[{i:9,q:"min",r:"vi"},{i:5,q:"maj",r:"IV"},{i:0,q:"maj",r:"I"},{i:7,q:"maj",r:"V"}]},
+ {name:"Pachelbel: I – V – vi – iii – IV – I – IV – V",desc:"The Canon in D sequence (in D: D–A–Bm–F♯m–G–D–G–A) — recycled through decades of pop.",mode:"major",seq:[{i:0,q:"maj",r:"I"},{i:7,q:"maj",r:"V"},{i:9,q:"min",r:"vi"},{i:4,q:"min",r:"iii"},{i:5,q:"maj",r:"IV"},{i:0,q:"maj",r:"I"},{i:5,q:"maj",r:"IV"},{i:7,q:"maj",r:"V"}]},
+ {name:"Minor: i – VI – III – VII",desc:"The minor-key pop loop (in A minor: Am–F–C–G) — “Stairway” colour, modern pop everywhere.",mode:"minor",seq:[{i:0,q:"min",r:"i"},{i:8,q:"maj",r:"VI"},{i:3,q:"maj",r:"III"},{i:10,q:"maj",r:"VII"}]},
+ {name:"Minor: i – iv – V",desc:"Classical minor drive — V is major (from harmonic minor) so it pulls hard back to i. Bach lives here.",mode:"minor",seq:[{i:0,q:"min",r:"i"},{i:5,q:"min",r:"iv"},{i:7,q:"maj",r:"V"},{i:0,q:"min",r:"i"}]},
+ {name:"12-bar blues (quick view)",desc:"I–I–I–I · IV–IV–I–I · V–IV–I–V — shown in full, one chord per bar. The backbone of blues & rock’n’roll.",mode:"major",seq:[{i:0,q:"maj",r:"I"},{i:0,q:"maj",r:"I"},{i:0,q:"maj",r:"I"},{i:0,q:"maj",r:"I"},{i:5,q:"maj",r:"IV"},{i:5,q:"maj",r:"IV"},{i:0,q:"maj",r:"I"},{i:0,q:"maj",r:"I"},{i:7,q:"maj",r:"V"},{i:5,q:"maj",r:"IV"},{i:0,q:"maj",r:"I"},{i:7,q:"maj",r:"V"}]},
+];
+const ROMAN_L={I:0,II:1,III:2,IV:3,V:4,VI:5,VII:6};
+function spellProgRoot(c){
+  const roman=c.r.replace("°","").toUpperCase(); const step=ROMAN_L[roman]||0;
+  const startLetter=state.root.label.replace("♯","").replace("♭","");
+  const letter=LETTERS[(LETTERS.indexOf(startLetter)+step)%7];
+  const targetPc=(state.root.pc+c.i)%12;
+  let diff=(targetPc-LETTER_PC[letter]+12)%12; if(diff>6)diff-=12;
+  const acc=diff===0?"":diff===1?"♯":diff===-1?"♭":diff===2?"𝄪":"";
+  return letter+acc;
+}
+function renderProgs(){
+  const list=document.getElementById("progList"); list.innerHTML="";
+  PROGS.forEach((p,pi)=>{
+    const div=document.createElement("div"); div.className="prog";
+    const chordNames=p.seq.map(c=>{ const nm=spellProgRoot(c); return nm+(c.q==="min"?"m":c.q==="dim"?"°":""); });
+    div.innerHTML='<div class="prog-head"><div><h3>'+p.name+'</h3><p class="small" style="margin:0">'+p.desc+'</p></div><button class="btn" data-play="'+pi+'">▶ Play in '+dualRoot(state.root)+(p.mode==="minor"?" minor":"")+'</button></div><div class="prog-seq">'+p.seq.map((c,i)=>'<span class="prog-chord" data-pi="'+pi+'" data-ci="'+i+'">'+c.r+' · '+chordNames[i]+'</span>'+(i<p.seq.length-1?'<span class="arr">→</span>':"")).join("")+'</div>';
+    list.appendChild(div);
+  });
+  list.querySelectorAll("[data-play]").forEach(btn=>btn.onclick=()=>{
+    const p=PROGS[+btn.dataset.play]; stopAll(); ensureAudio();
+    p.seq.forEach((c,idx)=>{
+      const rootMidi=57+state.root.pc+c.i; // a little lower for chords
+      const t=setTimeout(()=>{
+        document.querySelectorAll('.prog-chord[data-pi="'+btn.dataset.play+'"]').forEach(e=>e.classList.toggle("now",+e.dataset.ci===idx));
+        QINT[c.q].forEach(iv=>playTone(rootMidi+iv,0,1.35));
+      }, idx*1450); timers.push(t);
+    });
+    timers.push(setTimeout(()=>document.querySelectorAll(".prog-chord.now").forEach(e=>e.classList.remove("now")), p.seq.length*1450+300));
+  });
+}
+/* Chords & arpeggios explorer — degrees & intervals exactly as on the reference card */
+const CHORD_TYPES=[
+ {name:"Major Triad",sym:"",family:"Triad",desc:"The basic major chord — tonic, major 3rd, perfect 5th.",notes:[["1",0],["3",4],["5",7]]},
+ {name:"Minor Triad",sym:"m",family:"Triad",desc:"Major triad with the 3rd lowered a semitone — that one change is the whole major/minor difference.",notes:[["1",0],["♭3",3],["5",7]]},
+ {name:"Augmented Triad",sym:"aug",family:"Triad",desc:"Major triad with a raised 5th — it never quite settles, and leads naturally onward.",notes:[["1",0],["3",4],["♯5",8]]},
+ {name:"Diminished",sym:"dim7",family:"Seventh",desc:"Fully diminished seventh: stacked minor 3rds (1, ♭3, ♭5, 𝄫7). Symmetrical — it repeats every minor 3rd.",notes:[["1",0],["♭3",3],["♭5",6],["𝄫7",9]]},
+ {name:"Dominant 7",sym:"7",family:"Seventh",desc:"Major triad plus a flattened 7th — the engine of the blues and of V–I resolution.",notes:[["1",0],["3",4],["5",7],["♭7",10]]},
+ {name:"Major 7",sym:"maj7",family:"Seventh",desc:"Major triad plus the natural 7th — lush, calm, jazzy.",notes:[["1",0],["3",4],["5",7],["7",11]]},
+ {name:"Minor 7",sym:"m7",family:"Seventh",desc:"Minor triad plus a flattened 7th — the ii chord of jazz, mellow and mobile.",notes:[["1",0],["♭3",3],["5",7],["♭7",10]]},
+ {name:"Minor Major 7",sym:"m(maj7)",family:"Seventh",desc:"Minor triad with a major 7th — the tonic chord of harmonic and melodic minor. Haunting.",notes:[["1",0],["♭3",3],["5",7],["7",11]]},
+ {name:"Major 6",sym:"6",family:"Sixth",desc:"Major triad plus the 6th degree — a sweet, old-fashioned tonic sound.",notes:[["1",0],["3",4],["5",7],["6",9]]},
+ {name:"Minor 6",sym:"m6",family:"Sixth",desc:"Minor triad plus the 6th — the Dorian tonic chord.",notes:[["1",0],["♭3",3],["5",7],["6",9]]},
+ {name:"Suspended 4",sym:"sus4",family:"Triad",desc:"The 3rd is replaced by the 4th, so the chord is neither major nor minor until it resolves — usually to the major triad.",notes:[["1",0],["4",5],["5",7]]},
+ {name:"Seven ♯5",sym:"7♯5",family:"Altered dominant",desc:"Dominant 7 with a raised 5th — augmented tension pushing home.",notes:[["1",0],["3",4],["♯5",8],["♭7",10]]},
+ {name:"Seven ♭5",sym:"7♭5",family:"Altered dominant",desc:"Dominant 7 with a flattened 5th — the tritone colour at its starkest.",notes:[["1",0],["3",4],["♭5",6],["♭7",10]]},
+ {name:"Minor Seven ♭5 (Half-Diminished)",sym:"m7♭5 (ø7)",family:"Seventh",desc:"Diminished triad with a flattened 7th — the ii chord in minor keys, half-way to diminished.",notes:[["1",0],["♭3",3],["♭5",6],["♭7",10]]},
+ {name:"Nine",sym:"9",family:"Extension",desc:"Dominant 7 plus the 9th (the 2nd degree, an octave up).",notes:[["1",0],["3",4],["5",7],["♭7",10],["9",14]]},
+ {name:"Add 9",sym:"add9",family:"Extension",desc:"A plain major triad with the 9th added — no 7th, so it stays open and bright.",notes:[["1",0],["3",4],["5",7],["9",14]]},
+ {name:"Eleven",sym:"11",family:"Extension",desc:"As listed on the card: 1, 5, ♭7, 9, 11 — the 3rd is omitted, which keeps the 11th from clashing with it.",notes:[["1",0],["5",7],["♭7",10],["9",14],["11",17]]},
+ {name:"Thirteen",sym:"13",family:"Extension",desc:"The full dominant stack: every degree of the scale in thirds, out to the 13th.",notes:[["1",0],["3",4],["5",7],["♭7",10],["9",14],["11",17],["13",21]]},
+ {name:"Minor 9",sym:"m9",family:"Extension",desc:"Minor 7 plus the 9th — smooth, soulful, everywhere in jazz and R&B.",notes:[["1",0],["♭3",3],["5",7],["♭7",10],["9",14]]},
+ {name:"Major 6 Add 9",sym:"6/9",family:"Extension",desc:"Major 6 with an added 9th — a bright, piano-bar tonic chord.",notes:[["1",0],["3",4],["5",7],["6",9],["9",14]]},
+ {name:"Seven ♯9",sym:"7♯9",family:"Altered dominant",desc:"Dominant 7 with a sharpened 9th — the famous ‘Hendrix chord’ colour.",notes:[["1",0],["3",4],["5",7],["♭7",10],["♯9",15]]},
+ {name:"Seven ♭9",sym:"7♭9",family:"Altered dominant",desc:"Dominant 7 with a flattened 9th — dark dominant tension, classic in minor keys.",notes:[["1",0],["3",4],["5",7],["♭7",10],["♭9",13]]}
+];
+function spellChordTone(token,iv){
+  const baseDeg=parseInt(token.replace("♭","").replace("♯","").replace("𝄫",""),10);
+  const letter=LETTERS[(LETTERS.indexOf(state.root.label.replace("♯","").replace("♭",""))+(baseDeg-1)%7)%7];
+  const targetPc=(state.root.pc+iv)%12;
+  let diff=(targetPc-LETTER_PC[letter]+12)%12; if(diff>6)diff-=12;
+  const acc=diff===0?"":diff===1?"♯":diff===-1?"♭":diff===2?"𝄪":diff===-2?"𝄫":"";
+  return letter+acc;
+}
+function chordTypeMidis(ch){ const base=60+state.root.pc; return ch.notes.map(n=>base+n[1]); }
+function playBlockChord(ch){ stopAll(); ensureAudio(); chordTypeMidis(ch).forEach(m=>playTone(m,0,1.5)); }
+function playArpChord(ch,upDown){
+  stopAll(); ensureAudio(); let midis=chordTypeMidis(ch);
+  if(Math.max.apply(null,ch.notes.map(n=>n[1]))<12) midis=midis.concat([60+state.root.pc+12]);
+  let seq=upDown?midis.concat(midis.slice(0,-1).reverse()):midis;
+  seq.forEach((m,i)=>{ const t=setTimeout(()=>{ playTone(m,0,state.timbre==="strings"?.52:.85); highlightMidi(m); }, i*270); timers.push(t); });
+}
+function renderArps(){
+  const ch=CHORD_TYPES[state.chordSel];
+  document.getElementById("arpRootLabel").textContent=dualRoot(state.root);
+  document.getElementById("arpName").textContent=ch.name;
+  document.getElementById("arpSymbol").textContent=state.root.label+ch.sym;
+  document.getElementById("arpDesc").textContent=ch.desc;
+  document.getElementById("arpDegrees").textContent=ch.notes.map(n=>n[0]).join(" · ");
+  const names=ch.notes.map(n=>spellChordTone(n[0],n[1]));
+  document.getElementById("arpNoteNames").textContent=names.join(" · ");
+  document.getElementById("arpFamily").textContent=ch.family;
+  const wrap=document.getElementById("arpNotes"); wrap.innerHTML="";
+  ch.notes.forEach((n,i)=>{
+    const b=document.createElement("button"); b.className="note-chip"+(i===0?" root":""); b.dataset.midi=60+state.root.pc+n[1];
+    b.innerHTML="<b>"+names[i]+"</b><span>Degree "+n[0]+"</span>";
+    b.onclick=()=>{ stopAll(); playTone(60+state.root.pc+n[1],0,.95); };
+    wrap.appendChild(b);
+  });
+  const g=document.getElementById("arpGrid"); g.innerHTML="";
+  CHORD_TYPES.forEach((c,ci)=>{
+    const card=document.createElement("div"); card.className="arp-btn"+(ci===state.chordSel?" active":"");
+    const cn=c.notes.map(n=>spellChordTone(n[0],n[1])).join(" · ");
+    card.innerHTML="<b>"+c.name+"</b><span>"+state.root.label+c.sym+" · "+c.notes.map(n=>n[0]).join(" ")+"<br>"+cn+"</span>";
+    const row=document.createElement("div"); row.className="minirow";
+    const bb=document.createElement("button"); bb.className="mini"; bb.textContent="▶ Block";
+    bb.onclick=(e)=>{ e.stopPropagation(); state.chordSel=ci; renderArps(); playBlockChord(c); };
+    const ab=document.createElement("button"); ab.className="mini alt"; ab.textContent="▶ Arpeggio";
+    ab.onclick=(e)=>{ e.stopPropagation(); state.chordSel=ci; renderArps(); playArpChord(c,false); };
+    row.appendChild(bb); row.appendChild(ab); card.appendChild(row);
+    card.onclick=()=>{ state.chordSel=ci; renderArps(); };
+    g.appendChild(card);
+  });
+}
+document.getElementById("arpBlock").onclick=()=>playBlockChord(CHORD_TYPES[state.chordSel]);
+document.getElementById("arpUp").onclick=()=>playArpChord(CHORD_TYPES[state.chordSel],false);
+document.getElementById("arpUpDown").onclick=()=>playArpChord(CHORD_TYPES[state.chordSel],true);
+/* Section explanations — collapsed by default, revealed by the Explanation dropdown in each section header */
+document.querySelectorAll(".explain-toggle").forEach(function(btn){
+  var panel=document.getElementById(btn.getAttribute("aria-controls"));
+  if(!panel) return;
+  var label=btn.querySelector(".explain-label");
+  btn.addEventListener("click",function(){
+    var isOpen=btn.getAttribute("aria-expanded")==="true";
+    btn.setAttribute("aria-expanded",String(!isOpen));
+    panel.hidden=isOpen;
+    if(label) label.textContent=isOpen?"Explanation":"Hide explanation";
+  });
+});
+/* All scales in D — every dropdown scale/mode rebuilt on tonic D.
+   Unique scales only: the dropdown's Harmonic Minor alias (Minor family)
+   and its Harmonic Minor entry (mode I of its modes) are the same scale,
+   so it is listed once, in the Minor family; modes 2–7 of harmonic minor
+   follow under their own heading. Natural Minor and Aeolian are kept as
+   two entries, as in the dropdown, even though they share the same notes. */
+const D_ROOT=ROOTS.find(r=>r.pc===2);
+const LISTEN_GROUPS=[
+ {label:"Major diatonic modes",ids:["ionian","dorian","phrygian","lydian","mixolydian","aeolian","locrian"]},
+ {label:"Minor family",ids:["natural-minor","harmonic-minor","melodic-minor"]},
+ {label:"Harmonic Minor modes 2–7 — mode I, Harmonic Minor, is in the Minor family above",ids:["hm2","hm3","hm4","hm5","hm6","hm7"]},
+ {label:"Pentatonic & blues",ids:["major-pent","minor-pent","blues"]},
+ {label:"Other",ids:["whole-tone","diminished"]}
+];
+const LISTEN_FLAT=[];
+LISTEN_GROUPS.forEach(g=>g.ids.forEach(id=>{ const s=SCALES.find(x=>x.id===id); if(s) LISTEN_FLAT.push(s); }));
+function listenDisplay(s){
+  if(s.id.indexOf("hm")===0 && s.id!=="harmonic-minor") return {main:s.aka, sub:s.name};
+  return {main:s.name, sub:s.aka};
+}
+function listenMidis(s){ const base=60+D_ROOT.pc; return s.intervals.map(iv=>base+iv).concat([base+12]); }
+function clearListenPlaying(){ document.querySelectorAll(".listen-row.playing").forEach(e=>e.classList.remove("playing")); const st=document.getElementById("listenDStatus"); if(st) st.textContent=""; }
+function playListenScale(s,row){
+  clearListenPlaying();
+  scheduleNotes(listenMidis(s), state.tempo, Math.max(.7,state.tempo/1000+.45), false);
+  if(row) row.classList.add("playing");
+  const st=document.getElementById("listenDStatus"); if(st) st.textContent="Now playing: D "+listenDisplay(s).main;
+  timers.push(setTimeout(()=>{ if(row) row.classList.remove("playing"); if(st) st.textContent=""; }, listenMidis(s).length*state.tempo+250));
+}
+function renderListenD(){
+  const wrap=document.getElementById("listenDList"); if(!wrap) return; wrap.innerHTML="";
+  LISTEN_GROUPS.forEach(g=>{
+    const h=document.createElement("div"); h.className="listen-group-label"; h.textContent=g.label; wrap.appendChild(h);
+    const list=document.createElement("div"); list.className="listen-list";
+    g.ids.forEach(id=>{
+      const s=SCALES.find(x=>x.id===id); if(!s) return;
+      const d=listenDisplay(s);
+      const names=spellScale(D_ROOT, s.intervals, s.letterSteps);
+      const row=document.createElement("div"); row.className="listen-row"; row.dataset.scaleId=s.id;
+      const main=document.createElement("div"); main.className="listen-main";
+      main.innerHTML="<div class='listen-name'>D "+d.main+" <span>· "+d.sub+"</span></div><div class='listen-notes'>"+names.concat([names[0]]).join(" · ")+"</div><div class='listen-meta'>"+s.formula+" &nbsp;·&nbsp; "+s.pattern+" &nbsp;·&nbsp; "+s.char+"</div>";
+      const btn=document.createElement("button"); btn.type="button"; btn.className="btn secondary"; btn.textContent="▶ Play in D";
+      btn.setAttribute("aria-label","Play D "+d.main+" ascending, one octave");
+      btn.onclick=()=>playListenScale(s,row);
+      row.appendChild(main); row.appendChild(btn);
+      list.appendChild(row);
+    });
+    wrap.appendChild(list);
+  });
+}
+const playAllDBtn=document.getElementById("playAllD");
+if(playAllDBtn) playAllDBtn.onclick=()=>{
+  stopAll(); clearListenPlaying(); ensureAudio();
+  const st=document.getElementById("listenDStatus");
+  let offsetMs=0;
+  LISTEN_FLAT.forEach((s,idx)=>{
+    const midis=listenMidis(s);
+    const row=document.querySelector('.listen-row[data-scale-id="'+s.id+'"]');
+    const startMs=offsetMs;
+    midis.forEach((m,i)=>{ playTone(m, startMs/1000 + i*state.tempo/1000, Math.max(.7,state.tempo/1000+.45)); });
+    const t1=setTimeout(()=>{ document.querySelectorAll(".listen-row.playing").forEach(e=>e.classList.remove("playing")); if(row) row.classList.add("playing"); if(st) st.textContent="Now playing: D "+listenDisplay(s).main+" ("+(idx+1)+" of "+LISTEN_FLAT.length+")"; }, startMs);
+    timers.push(t1);
+    offsetMs += midis.length*state.tempo + 550;
+  });
+  timers.push(setTimeout(()=>{ clearListenPlaying(); }, offsetMs+250));
+};
+const stopAllDBtn=document.getElementById("stopAllD");
+if(stopAllDBtn) stopAllDBtn.onclick=()=>{ stopAll(); clearListenPlaying(); };
+function renderAll(){ renderScale(); renderCircle(); renderChords(); renderArps(); renderListenD(); }
+renderScale(); renderCircle(); renderChords(); renderArps(); renderListenD();
+</script>
+</body>
+</html>
